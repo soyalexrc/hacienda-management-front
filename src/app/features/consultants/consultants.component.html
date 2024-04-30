@@ -1,0 +1,177 @@
+<div class="container my-5 px-4 px-lg-5">
+  <!-- Heading Row-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Consultores</h1>
+      </div>
+      <div class="col-md-3 text-right">
+        <input type="text" class="form-control" placeholder="Buscar">
+      </div>
+      <div class="col-sm-1 text-right">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Sección dedicada a la información básica de los consultores. Esta información es necesaria para asignarle los datos
+    al inventario de equipos y consultores.
+  </p>
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Dirección </th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Compañía</th>
+      <th scope="col">Email</th>
+      <th scope="col">Dispositivos</th>
+      <th scope="col">Estatus</th>
+      <th scope="col">Editar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Ramon Vera</td>
+      <td>123 Main St, City, Country</td>
+      <td>(123) 456-7890</td>
+      <td>Tres Monjitas</td>
+      <td>info.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td>Active</td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Karina Faria</td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>StarBucks</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td>Active</td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Amanda Arcel</td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>T Mobile</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td><span class="badge bg-danger">Inactive</span></td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Melvin Nieves</td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>Sprint</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td><span class="badge bg-danger">Inactive</span></td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Stephanie Nava</td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>Amigo</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td><span class="badge bg-danger">Inactive</span></td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Carlos Acuna </td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>Claro</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td><span class="badge bg-danger">Inactive</span></td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Eduardo Joglar</td>
+      <td>456 Elm St, City, Country</td>
+      <td>(987) 654-3210</td>
+      <td>MCS</td>
+      <td>contact.com</td>
+      <td>
+        <button type="button" routerLink="/devices" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+          Ver
+        </button>
+      </td>
+      <td><span class="badge bg-danger">Inactive</span></td>
+      <td>
+        <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+          Editar
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<footer style="text-align:center">
+  <ul class="pagination align-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">1</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Siguiente</a>
+    </li>
+  </ul>
+</footer>

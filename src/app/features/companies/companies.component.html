@@ -1,0 +1,252 @@
+<div class="container mt-5 px-4 px-lg-5">
+
+  <h2 style="text-align:center">DASHBOARD</h2>
+  <div class="col-lg-12"><img class="img-fluid rounded mb-4 mb-lg-0" src="/assets/images/google.png" alt="..." /></div>
+  <br />
+  <br />
+  <p>
+    Sección dedicada a la información básica de la compañía. Esta información es necesaria para asignarle los datos
+    al inventario de Dispositivos y consultores.
+  </p>
+
+  <!----- Heading Row---->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Compañías</h2>
+      </div>
+      <div class="col-md-3 text-right">
+        <input type="text" class="form-control" placeholder="Buscar">
+      </div>
+      <div class="col-sm-1 text-right">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="checkbox-container">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="todosCheckbox" checked>
+        <label class="form-check-label checkbox-label" for="todosCheckbox">
+          Todos
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="activoCheckbox" checked>
+        <label class="form-check-label checkbox-label" for="activoCheckbox">
+          Activo
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="inactivoCheckbox" checked>
+        <label class="form-check-label checkbox-label" for="inactivoCheckbox">
+          Inactivo
+        </label>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="container">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">Nombre de la Compañía</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Contacto</th>
+        <th scope="col">Email</th>
+        <th scope="col">Estatus</th>
+        <th scope="col">Contratistas</th>
+        <th scope="col">Editar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="clickable-cell">Tres monjitas
+          <div id="user-list" class="hidden">
+            <ul>
+              <li>Carlos Arroyo</li>
+              <li>Melvin Candelaria</li>
+              <li>Carla Luna</li>
+            </ul>
+          </div>
+        </td>
+        <td>123 Main St, City, Country</td>
+        <td>(123) 456-7890</td>
+        <td>Oficial Principal</td>
+        <td>info.com</td>
+        <td>Active</td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+            Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="clickable-cell2"> Netwave
+          <div id="user-list2" class="hidden">
+            <ul>
+              <li>Julia Santos</li>
+              <li>Felix Velez</li>
+              <li>Viviana De Pinho</li>
+            </ul>
+          </div>
+        </td>
+        <td>456 Elm St, City, Country</td>
+        <td>(987) 654-3210</td>
+        <td>Soporte</td>
+        <td>contact.com</td>
+        <td><span class="badge bg-danger">Inactive</span></td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="clickable-cell3">   T Mobile
+          <div id="user-list3" class="hidden">
+            <ul>
+              <li>Maria Santos</li>
+              <li>Candelaria Soliz</li>
+              <li>Ingrid De Pinho</li>
+            </ul>
+          </div>
+        </td>
+        <td>123 Main St, City, Country</td>
+        <td>(123) 456-7890</td>
+        <td>Soporte</td>
+        <td>info.com</td>
+        <td>Active</td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+
+      <tr>
+        <td>T MOBILE</td>
+        <td>456 Elm St, City, Country</td>
+        <td>(987) 654-3210</td>
+        <td>Soporte</td>
+        <td>contact.com</td>
+        <td><span class="badge bg-danger">Inactive</span></td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>MCS</td>
+        <td>123 Main St, City, Country</td>
+        <td>(123) 456-7890</td>
+        <td>Asistente</td>
+        <td>info.com</td>
+        <td>Active</td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Carlos Arroyo</td>
+        <td>456 Elm St, City, Country</td>
+        <td>(987) 654-3210</td>
+        <td>Servicio</td>
+        <td>contact.com</td>
+        <td><span class="badge bg-danger">Inactive</span></td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Don Juan</td>
+        <td>123 Main St, City, Country</td>
+        <td>(123) 456-7890</td>
+        <td>Soporte</td>
+        <td>info.com</td>
+        <td>Active</td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Nuc University</td>
+        <td>456 Elm St, City, Country</td>
+        <td>(987) 654-3210</td>
+        <td>Soporte</td>
+        <td>contact.com</td>
+        <td><span class="badge bg-danger">Inactive</span></td>
+        <td>
+          <button type="button" routerLink="/consultants" data-toggle="modal" data-target="#ContractorModal" class="btn btn-primary btn-sm btn-block">
+            Ver
+          </button>
+        </td>
+        <td>
+          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
+           Editar
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <footer style="text-align:center">
+    <ul class="pagination align-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <span class="page-link">1</span>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Siguiente</a>
+      </li>
+    </ul>
+  </footer>
+</div>
