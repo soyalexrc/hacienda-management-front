@@ -1,4 +1,6 @@
-export const LOGIN_MOCK = {
+import {LoginResult} from "../../../core/interfaces/auth";
+
+export const LOGIN_MOCK: LoginResult = {
   "mainUser": {
     "assetID": 1,
     "roleID": 1,

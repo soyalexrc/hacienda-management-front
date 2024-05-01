@@ -1,15 +1,11 @@
 <div class="container my-5 px-4 px-lg-5">
 
 <div class="container">
-    <div class="row align-items-center">
-      <div class="col-xs-1 text-right">
-        <button type="button" data-toggle="modal" data-target="#miModal3" class="btn btn-primary n-sm btn-block">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Dispositivos</h1>
+        <button type="button" data-toggle="modal" data-target="#miModal3" class="btn btn-primary n-sm btn-block" (click)="open()">
           Agregar
         </button>
-      </div>
-      <div class="col-sm-1 text-left">
-        <h1>Dispositivos</h1>
-      </div>
     </div>
   </div>
 
@@ -17,6 +13,7 @@
     Sección dedicada a la información básica de la compañía. Esta información es necesaria para asignarle los datos
     al inventario de Dispositivos.
   </p>
+
   <div class="container">
     <table class="table table-striped table-bordered">
       <thead>
@@ -32,50 +29,90 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>Dell</td>
-        <td>Inspiron 200</td>
-        <td>1234567890abc</td>
-        <td>Negra</td>
-        <td>10/06/2023</td>
-        <td>    </td>
-        <td>Active</td>
-        <td>
-          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
-            Editar
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>Dell</td>
-        <td>Inspiron 200</td>
-        <td>1234567890abc</td>
-        <td>Negra</td>
-        <td>10/06/2023</td>
-        <td>    </td>
-        <td><span class="badge bg-danger">Inactive</span></td>
-        <td>
-          <button type="button" data-toggle="modal" data-target="#miModal" class="btn btn-primary btn-sm btn-block">
-            Editar
-          </button>
-        </td>
-      </tr>
+        @for (device of DEVICES_MOCK; track device.id) {
+          <tr>
+            <td class="clickable-cell">{{device.brand}}</td>
+            <td>{{ device.model }}</td>
+            <td>{{ device.series }}</td>
+            <td>{{ device.color }}</td>
+            <td>{{ device.registerDate }}</td>
+            <td>{{ device.deviceType }}</td>
+            <td>Active</td>
+            <td>
+              <button type="button" data-toggle="modal" (click)="open(device)"  class="btn btn-primary btn-sm btn-block">
+                Editar
+              </button>
+            </td>
+          </tr>
+        }
       <!-- Add more rows as needed -->
       </tbody>
     </table>
   </div>
 </div>
 
+<!--MODAL DE EDICION DE CONSULTOR-->
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ edit ? 'Editar' : '' }} información de el Dispositivo</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <input id="brand"  class="form-control" [ngClass]="{'input-error': getFieldError('brand', 'required')}" placeholder="Marca" name="brand" formControlName="brand">
+            @if (getFieldError('brand', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
+          <div class="form-group mt-3">
+            <input id="model"  class="form-control" [ngClass]="{'input-error': getFieldError('model', 'required')}" placeholder="Modelo" name="model" formControlName="model">
+            @if (getFieldError('model', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <input id="series"  class="form-control" [ngClass]="{'input-error': getFieldError('series', 'required')}" placeholder="Serie" name="series" formControlName="series">
+            @if (getFieldError('series', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <input id="color"  class="form-control" [ngClass]="{'input-error': getFieldError('color', 'required')}" placeholder="Color" name="color" formControlName="color">
+            @if (getFieldError('color', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <input id="dateRegister"  class="form-control" [ngClass]="{'input-error': getFieldError('registerDate', 'required')}" placeholder="Fecha de registro" name="registerDate" formControlName="registerDate">
+            @if (getFieldError('registerDate', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <input id="deviceType"  class="form-control" [ngClass]="{'input-error': getFieldError('deviceType', 'required')}" placeholder="Tipo de dispositivo" name="deviceType" formControlName="deviceType">
+            @if (getFieldError('deviceType', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveChanges()" [disabled]="form.invalid">Guardar cambios</button>
+  </div>
+</ng-template>
