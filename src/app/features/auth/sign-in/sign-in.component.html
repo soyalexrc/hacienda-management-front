@@ -5,8 +5,7 @@
     <div class="col-lg-5">
       <h1 class="font-weight-light text-center">Inicio de sesion</h1>
       <a class="nav-link text-primary" routerLink="/sign-up" style="text-align:center" >Crear nueva cuenta</a>
-
-      <form [formGroup]="form" (ngSubmit)="login()">
+      <form [formGroup]="form"  (ngSubmit)="login()">
         <div class="form-group mt-3">
           <input id="username" class="form-control" [ngClass]="{'input-error': getFieldError('username', 'required')}" placeholder="User Name" name="name" formControlName="username">
           @if (getFieldError('username', 'required')) {
@@ -23,7 +22,10 @@
           <a class="nav-link text-primary" style="text-align:center" routerLink="/forgot-password">¿Olvidó su contraseña?</a>
         </div>
 
-        <button class="btn w-100 btn-primary mt-5" type="submit" [disabled]="form.invalid">Login</button>
+        <button class="btn w-100 btn-primary mt-5 d-flex align-items-center justify-content-center gap-3" type="submit" [disabled]="form.invalid">
+          <app-spinner color="#fffff" [width]="20" [height]="20" [isLoading]="isSubmitting"></app-spinner>
+          Login
+        </button>
       </form>
 
 

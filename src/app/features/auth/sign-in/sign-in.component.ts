@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {LoginForm, RegisterForm} from "../../../core/interfaces/auth";
 import {NgClass} from "@angular/common";
 import {AuthService} from "../../../core/services/auth.service";
-import {LOGIN_MOCK} from "../../../shared/utils/data";
+import {SpinnerComponent} from "../../../shared/components/spinner/spinner.component";
 
 @Component({
   selector: 'app-sign-in',
@@ -12,17 +12,18 @@ import {LOGIN_MOCK} from "../../../shared/utils/data";
   imports: [
     RouterLink,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    SpinnerComponent
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent implements OnInit{
   form!: FormGroup<LoginForm>;
-
+  private router = inject(Router);
   private fb = inject(FormBuilder);
   private auth = inject(AuthService)
-  private router = inject(Router);
+  isSubmitting = false;
   ngOnInit() {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -35,7 +36,17 @@ export class SignInComponent implements OnInit{
   }
 
   login() {
-    this.auth.signIn(LOGIN_MOCK);
-    this.router.navigate(['/']);
+    this.isSubmitting = true;
+    const {username, password} = this.form.value;
+    this.auth.signIn(username!, password!).subscribe(result => {
+      sessionStorage.setItem('isLoggedIn', String(true));
+      sessionStorage.setItem('currentUser', JSON.stringify(result));
+      this.auth.updateCurrentUser(result);
+      this.router.navigate(['/']);
+    }, () => {
+
+    }, () => {
+      this.isSubmitting = false;
+    });
   }
 }
