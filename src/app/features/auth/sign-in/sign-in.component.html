@@ -3,39 +3,31 @@
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
     <div class="col-lg-7"><img class="img-fluid rounded mb-3 mb-lg-0" src="/assets/images/Business.jpeg" alt="..." /></div>
     <div class="col-lg-5">
-      <h1 class="font-weight-light">HACIENDA</h1>
-      <p>Crear nueva cuenta</p>
-      <div class="form-group mt-3">
-        <input id="txtNombre" runat="server" class="form-control" placeholder="Nombre" name="Nombre" autofocus>
-      </div>
+      <h1 class="font-weight-light text-center">Inicio de sesion</h1>
+      <a class="nav-link text-primary" routerLink="/sign-up" style="text-align:center" >Crear nueva cuenta</a>
 
-      <div class="form-group mt-3">
-        <input id="txtApellidos" runat="server" class="form-control" placeholder="Apellidos" name="Nombre" autofocus>
-      </div>
-      <div class="form-group mt-3">
-        <input id="txtUserName" runat="server" class="form-control" placeholder="User Name" name="email" autofocus>
-      </div>
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <div class="form-group mt-3">
+          <input id="username" class="form-control" [ngClass]="{'input-error': getFieldError('username', 'required')}" placeholder="User Name" name="name" formControlName="username">
+          @if (getFieldError('username', 'required')) {
+            <span class="error-text">Este campo es requerido</span>
+          }
+        </div>
+        <div class="form-group mt-3">
+          <input id="password" class="form-control" [ngClass]="{'input-error': getFieldError('password', 'required')}" placeholder="Password" name="password" type="password" formControlName="password">
+          @if (getFieldError('password', 'required')) {
+            <span class="error-text">Este campo es requerido</span>
+          }
+        </div>
+        <div class="col-lg-12 mt-3">
+          <a class="nav-link text-primary" style="text-align:center" routerLink="/forgot-password">¿Olvidó su contraseña?</a>
+        </div>
 
-      <div class="form-group mt-3">
-        <input id="txtPassword" runat="server" class="form-control" placeholder="Password" name="password" type="password" value="">
+        <button class="btn w-100 btn-primary mt-5" type="submit" [disabled]="form.invalid">Login</button>
+      </form>
 
-      </div>
 
-      <div class="form-group mt-3">
-        <input id="txtPassword" runat="server" class="form-control" placeholder="Re Enter Password" name="password" type="password" value="">
-
-      </div>
-      <div class="col-lg-12 mt-3">
-        <a class="nav-link" style="text-align:center" id="NewAccount" href="Login">¿Olvidó su contraseña?</a>
-      </div>
-      <br />
-      <br />
-    <button class="btn w-100 btn-primary">Login</button>
     </div>
 
   </div>
-  <br />
-  <br />
-  <br />
-  <br />
 </div>

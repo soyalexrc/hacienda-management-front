@@ -14,7 +14,9 @@
 <!--          <li class="nav-item"><a class="nav-link" href="Notifications">Notificaciones</a></li>-->
 <!--        </ul>-->
 <!--      </div>-->
-      <a class="align-content-end" >Cerrar Sesión</a>
+      @if (!hideSignOut()) {
+        <a class="align-content-end" style="cursor: pointer" (click)="signOut()">Cerrar Sesión</a>
+      }
     </div>
   </nav>
     <main role="main" class="container pb-3">

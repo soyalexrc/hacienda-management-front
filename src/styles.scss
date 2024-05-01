@@ -95,3 +95,18 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  padding: .5rem;
+}
+
+.input-error {
+  border-color: red;
+  &:focus {
+    border-color: red;
+    box-shadow: 0 0 0 0.24rem rgb(253 13 13 /25%);
+  }
+}
