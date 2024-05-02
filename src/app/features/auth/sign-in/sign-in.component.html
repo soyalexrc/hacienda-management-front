@@ -4,7 +4,7 @@
     <div class="col-lg-7"><img class="img-fluid rounded mb-3 mb-lg-0" src="/assets/images/Business.jpeg" alt="..." /></div>
     <div class="col-lg-5">
       <h1 class="font-weight-light text-center">Inicio de sesion</h1>
-      <a class="nav-link text-primary" routerLink="/sign-up" style="text-align:center" >Crear nueva cuenta</a>
+<!--      <a class="nav-link text-primary" routerLink="/sign-up" style="text-align:center" >Crear nueva cuenta</a>-->
       <form [formGroup]="form"  (ngSubmit)="login()">
         <div class="form-group mt-3">
           <input id="username" class="form-control" [ngClass]="{'input-error': getFieldError('username', 'required')}" placeholder="User Name" name="name" formControlName="username">

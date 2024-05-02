@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import {RootLayoutComponent} from "./core/layout/root-layout/root-layout.component";
 import {authGuard} from "./core/guards/auth.guard";
+import {adminGuard} from "./core/guards/admin.guard";
+import {consultantGuard} from "./core/guards/consultant.guard";
 
 export const routes: Routes = [
   {
@@ -14,12 +16,12 @@ export const routes: Routes = [
       },
       {
         path: 'companies',
-        canActivate: [authGuard],
+        canActivate: [authGuard, adminGuard],
         loadComponent: () => import('./features/companies/companies.component').then(c => c.CompaniesComponent)
       },
       {
         path: 'consultants',
-        canActivate: [authGuard],
+        canActivate: [authGuard, consultantGuard ],
         loadComponent: () => import('./features/consultants/consultants.component').then(c => c.ConsultantsComponent)
       },
       {
