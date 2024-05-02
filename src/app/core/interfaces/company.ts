@@ -9,10 +9,37 @@ export interface CompanyForm {
 }
 
 export interface Company {
-  id: string;
+  id: string | number;
   name: string;
   address: string;
   phone: string;
   email: string;
   companyData: string;
 }
+
+export interface CompaniesResult {
+  companyInfo:  CompanyInfo[];
+  hasError:     boolean;
+  errorDisplay: string;
+  errorDesc:    string;
+  errorNum:     number;
+  errorSubject: string;
+  message:      string;
+}
+
+export interface CompanyInfo {
+  company_id:           number;
+  company_name:         string;
+  company_officer_id:   number;
+  company_add1:         string;
+  company_add2:         string;
+  company_city:         string;
+  company_zip:          string;
+  company_phone:        string;
+  company_status:       boolean;
+  company_creationdate: string;
+  company_lastupdate:   string;
+  company_updateby:     string;
+  company_deleted_date: string;
+}
+

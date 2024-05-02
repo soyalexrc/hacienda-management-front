@@ -16,7 +16,7 @@ export const routes: Routes = [
       },
       {
         path: 'companies',
-        canActivate: [authGuard, adminGuard],
+        canActivate: [authGuard],
         loadComponent: () => import('./features/companies/companies.component').then(c => c.CompaniesComponent)
       },
       {

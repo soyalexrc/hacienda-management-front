@@ -60,29 +60,35 @@
         <th scope="col">Editar</th>
       </tr>
       </thead>
-      <tbody>
-      @for (company of COMPANIES_MOCK; track company.id) {
-        <tr>
-          <td class="clickable-cell">{{company.name}}</td>
-          <td>{{ company.address }}</td>
-          <td>{{ company.phone }}</td>
-          <td>{{ company.companyData }}</td>
-          <td>{{ company.email }}</td>
-          <td>Active</td>
-          <td>
-            <button type="button" routerLink="/consultants" class="btn btn-primary btn-sm btn-block">
-              Ver
-            </button>
-          </td>
-          <td>
-            <button type="button" data-toggle="modal" (click)="open(company)"  class="btn btn-primary btn-sm btn-block">
-              Editar
-            </button>
-          </td>
-        </tr>
+      @if (companies && !loading) {
+        <tbody>
+          @for (company of companies; track company.company_id) {
+            <tr>
+              <td class="clickable-cell">{{company.company_name}}</td>
+              <td>{{ company.company_add1 }} {{ company.company_add2 }}</td>
+              <td>{{ company.company_phone }}</td>
+              <td>{{ company.company_city }}</td>
+              <td>{{ company.company_officer_id }}</td>
+              <td>{{ company.company_status ? 'Active' : 'Inactive' }}</td>
+              <td>
+                <button type="button" routerLink="/consultants" class="btn btn-primary btn-sm btn-block">
+                  Ver
+                </button>
+              </td>
+              <td>
+                <button type="button" data-toggle="modal" (click)="open(company)"  class="btn btn-primary btn-sm btn-block">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
       }
-      </tbody>
     </table>
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <app-spinner [isLoading]="loading" color="#0d6efd" message="Cargando informacion..."></app-spinner>
+    </div>
+
   </div>
 
 

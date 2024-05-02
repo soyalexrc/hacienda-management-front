@@ -1,5 +1,8 @@
 @if (isLoading) {
   <div class="spinner-container">
     <div class="spinner" [ngStyle]="{'border-color': color, 'border-width': borderWidth, 'width': getWidth, 'height': getHeight}"></div>
+    @if (message) {
+      <p class="message">{{message}}</p>
+    }
   </div>
 }

@@ -3,8 +3,10 @@ import { RouterLink} from "@angular/router";
 import {ModalDismissReasons, NgbInputDatepicker, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgClass} from "@angular/common";
-import {Company, CompanyForm} from "../../core/interfaces/company";
+import {Company, CompanyForm, CompanyInfo} from "../../core/interfaces/company";
 import {COMPANIES_MOCK} from "../../shared/utils/data/company";
+import {CompanyService} from "../../core/services/company.service";
+import {SpinnerComponent} from "../../shared/components/spinner/spinner.component";
 
 @Component({
   selector: 'app-companies',
@@ -15,22 +17,26 @@ import {COMPANIES_MOCK} from "../../shared/utils/data/company";
     NgbInputDatepicker,
     FormsModule,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    SpinnerComponent
   ],
   styleUrl: './companies.component.scss'
 })
 export class CompaniesComponent implements OnInit{
   private modalService = inject(NgbModal);
+  private companyService = inject(CompanyService);
   @ViewChild('editModal') editModal = TemplateRef<any>;
   form!: FormGroup<CompanyForm>;
+  loading = false;
   edit = false;
-  protected readonly COMPANIES_MOCK = COMPANIES_MOCK;
+  companies: CompanyInfo[] = [];
 
   private fb = inject(FormBuilder);
 
   closeResult = '';
 
   ngOnInit() {
+    this.getCompanies();
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -40,10 +46,18 @@ export class CompaniesComponent implements OnInit{
     })
   }
 
-  open(company: Company) {
+  open(company: CompanyInfo) {
     if (company) {
       this.edit = true;
-      this.updateForm(company);
+      const data: Company = {
+        id: company.company_id,
+        email: company.company_city,
+        companyData: company.company_city,
+        phone: company.company_phone,
+        address: company.company_add1 + ' ' + company.company_add2,
+        name: company.company_name
+      }
+      this.updateForm(data);
     } else {
       this.form.reset();
       this.edit = false;
@@ -82,6 +96,17 @@ export class CompaniesComponent implements OnInit{
       if (company[key as keyof Company] !== 'id') {
         this.form.get(key)?.patchValue(company[key as keyof Company])
       }
+    })
+  }
+
+  getCompanies() {
+    this.loading = true;
+    this.companyService.getCompanies().subscribe(result => {
+      this.companies = result.companyInfo;
+    }, () => {
+
+    }, () => {
+      this.loading = false;
     })
   }
 

@@ -1,4 +1,10 @@
 .spinner-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .message {
+    margin: 0;
+  }
   //position: absolute; /* Position in the center (optional) */
   //top: 50%;
   //left: 50%;
