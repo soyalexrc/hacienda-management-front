@@ -12,7 +12,7 @@ import {NgStyle} from "@angular/common";
 })
 export class SpinnerComponent {
   @Input({required: true}) isLoading!: boolean;
-  @Input({required: true}) color!: string;
+  @Input() color = '#0d6efd';
   @Input() message?: string;
   @Input() width = 25;
   @Input() borderWidth = 2;

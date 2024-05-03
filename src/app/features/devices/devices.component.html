@@ -28,26 +28,31 @@
         <th scope="col">Editar</th>
       </tr>
       </thead>
-      <tbody>
-        @for (device of DEVICES_MOCK; track device.id) {
-          <tr>
-            <td class="clickable-cell">{{device.brand}}</td>
-            <td>{{ device.model }}</td>
-            <td>{{ device.series }}</td>
-            <td>{{ device.color }}</td>
-            <td>{{ device.registerDate }}</td>
-            <td>{{ device.deviceType }}</td>
-            <td>Active</td>
-            <td>
-              <button type="button" data-toggle="modal" (click)="open(device)"  class="btn btn-primary btn-sm btn-block">
-                Editar
-              </button>
-            </td>
-          </tr>
-        }
-      <!-- Add more rows as needed -->
-      </tbody>
+      @if (devices && !loading) {
+        <tbody>
+          @for (device of devices; track device.propid) {
+            <tr>
+              <td class="clickable-cell">{{device.propmake}}</td>
+              <td>{{ device.propmodel }}</td>
+              <td>{{ device.propserial }}</td>
+              <td>{{ device.propcolor }}</td>
+              <td>{{ device.propregistrationdate }}</td>
+              <td>{{ device.propapprovalperson }}</td>
+              <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
+              <td>
+                <button type="button" data-toggle="modal" (click)="open(device)"  class="btn btn-primary btn-sm btn-block">
+                  Editar
+                </button>
+              </td>
+            </tr>
+          }
+        <!-- Add more rows as needed -->
+        </tbody>
+      }
     </table>
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <app-spinner [isLoading]="loading"  message="Cargando informacion..."></app-spinner>
+    </div>
   </div>
 </div>
 

@@ -1,1 +1,24 @@
-<p>notifications works!</p>
+<div class="container py-5">
+  <h1 class="mb-3">Notificaciones</h1>
+  @if (!notifications) {
+    <div class="d-flex justify-content-center align-items-center" style="height: 400px">
+      Usted no cuenta con notificaciones...
+    </div>
+  }
+
+    @for (notification of notifications; track notification.noteid) {
+      <div class="card mb-3">
+        <div class="card-body row d-flex align-items-start">
+          <div class="col-9">
+            <p class="mb-1" style="color: gray">from: {{ notification.notefrom }}</p>
+            <p class=" small">{{ notification.notesubject }}</p>
+            <p class="fw-bold mb-0">{{ notification.notetxt }}</p>
+          </div>
+          <div class="col-3">
+            <p>{{ notification.notedate | date: 'dd/MM/YYYY' }}</p>
+          </div>
+        </div>
+      </div>
+    }
+
+</div>

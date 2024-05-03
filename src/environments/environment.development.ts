@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: 'https://b3f08cc0-b1bb-4d75-b1e1-249be7a474f5.mock.pstmn.io/api/'
+  baseUrl: 'https://9f1727dd-62cc-49ba-99eb-58b9f6e771c6.mock.pstmn.io/api'
 };

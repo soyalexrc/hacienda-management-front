@@ -1,20 +1,22 @@
 import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {DEVICES_MOCK} from "../../shared/utils/data/device";
-import {Device, DeviceForm} from "../../core/interfaces/device";
+import {Device, DeviceForm, DeviceInfo} from "../../core/interfaces/device";
 import {NgClass} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {SpinnerComponent} from "../../shared/components/spinner/spinner.component";
+import {DeviceService} from "../../core/services/device.service";
 
 @Component({
   selector: 'app-devices',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgClass,
-    RouterLink
-  ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgClass,
+        RouterLink,
+        SpinnerComponent
+    ],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss'
 })
@@ -22,14 +24,17 @@ export class DevicesComponent implements OnInit{
   private modalService = inject(NgbModal);
   @ViewChild('editModal') editModal = TemplateRef<any>;
   form!: FormGroup<DeviceForm>;
+  devices: DeviceInfo[] = [];
   edit = false;
-  protected readonly DEVICES_MOCK = DEVICES_MOCK;
+  loading = false;
 
   private fb = inject(FormBuilder);
+  private devicesService = inject(DeviceService);
 
   closeResult = '';
 
   ngOnInit() {
+    this.getDevices();
     this.form = this.fb.group({
       brand: ['', Validators.required],
       model: ['', Validators.required],
@@ -40,10 +45,19 @@ export class DevicesComponent implements OnInit{
     })
   }
 
-  open(device?: Device) {
+  open(device?: DeviceInfo) {
     if (device) {
+      const data: Device = {
+        id: device.propid,
+        deviceType: device.propapprovalperson,
+        registerDate: device.propregistrationdate,
+        brand: device.propmake,
+        color: device.propcolor,
+        model: device.propmodel,
+        series: device.propserial
+      }
       this.edit = true;
-      this.updateForm(device);
+      this.updateForm(data);
     } else {
       this.form.reset();
       this.edit = false;
@@ -82,6 +96,17 @@ export class DevicesComponent implements OnInit{
       if (company[key as keyof Device] !== 'id') {
         this.form.get(key)?.patchValue(company[key as keyof Device])
       }
+    })
+  }
+
+  getDevices() {
+    this.loading = true;
+    this.devicesService.getDevices().subscribe(result => {
+      this.devices = result.deviceInfo;
+    }, () => {
+
+    }, () => {
+      this.loading = false;
     })
   }
 

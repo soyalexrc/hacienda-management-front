@@ -7,7 +7,7 @@ export const consultantGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const user = auth.getCurrentUser;
 
-  if ( user.mainUser.roleID === 1 || user.mainUser.roleID === 0) {
+  if ( user.mainUser.roleID !== 1 && user.mainUser.roleID !== 0) {
     router.navigate(['/'], { replaceUrl: true })
     return false
   }
