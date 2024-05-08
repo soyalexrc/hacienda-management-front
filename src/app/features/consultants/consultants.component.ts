@@ -36,6 +36,10 @@ export class ConsultantsComponent implements OnInit{
       email: ['', Validators.required],
       phone: ['', Validators.required],
     })
+
+    this.form.get('name')?.disable();
+    this.form.get('email')?.disable();
+    this.form.get('company')?.disable();
   }
 
   open(consultant?: Consultant) {

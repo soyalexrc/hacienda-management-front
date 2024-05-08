@@ -3,9 +3,9 @@
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1>Consultores</h1>
-      <button type="button" data-toggle="modal" data-target="#miModal3" class="btn btn-primary n-sm btn-block" (click)="open()">
-        Agregar
-      </button>
+<!--      <button type="button" data-toggle="modal" data-target="#miModal3" class="btn btn-primary n-sm btn-block" (click)="open()">-->
+<!--        Agregar-->
+<!--      </button>-->
     </div>
   </div>
 
@@ -30,8 +30,9 @@
       <th scope="col">Teléfono</th>
       <th scope="col">Compañía</th>
       <th scope="col">Email</th>
-      <th scope="col">Dispositivos</th>
+      <th scope="col">Check in / Check out</th>
       <th scope="col">Estatus</th>
+      <th scope="col">Dispositivos</th>
       <th scope="col">Editar</th>
     </tr>
     </thead>
@@ -43,12 +44,13 @@
           <td>{{ consultant.phone }}</td>
           <td>{{ consultant.company }}</td>
           <td>{{ consultant.email }}</td>
+          <td>Declinado</td>
+          <td>Active</td>
           <td>
             <button type="button" routerLink="/devices" class="btn btn-primary btn-sm btn-block">
               Ver
             </button>
           </td>
-          <td>Active</td>
           <td>
             <button type="button" data-toggle="modal" (click)="open(consultant)"  class="btn btn-primary btn-sm btn-block">
               Editar
@@ -76,7 +78,7 @@
 
 <!--MODAL DE EDICION DE CONSULTOR-->
 <ng-template #editModal let-modal>
-  <div class="modal-header">
+  <div class="modal-header modal-header-colored">
     <h4 class="modal-title" id="modal-basic-title">Editar información de el Consultor</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
@@ -85,6 +87,7 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="name">Nombre</label>
             <input id="name"  class="form-control" [ngClass]="{'input-error': getFieldError('name', 'required')}" placeholder="Nombre de Consultor" name="name" formControlName="name">
             @if (getFieldError('name', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -94,6 +97,7 @@
         <div class="col-12 col-md-6">
 
           <div class="form-group mt-3">
+            <label for="address">Direccion</label>
             <input id="address"  class="form-control" [ngClass]="{'input-error': getFieldError('address', 'required')}" placeholder="Direccion" name="address" formControlName="address">
             @if (getFieldError('address', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -102,6 +106,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="phone">Telefono</label>
             <input id="phone"  class="form-control" [ngClass]="{'input-error': getFieldError('phone', 'required')}" placeholder="Telefono" name="phone" formControlName="phone">
             @if (getFieldError('phone', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -110,6 +115,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="company">Nombre de compania</label>
             <input id="company"  class="form-control" [ngClass]="{'input-error': getFieldError('company', 'required')}" placeholder="Compañía" name="company" formControlName="company">
             @if (getFieldError('company', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -118,6 +124,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="email">Email</label>
             <input id="email"  class="form-control" [ngClass]="{'input-error': getFieldError('email', 'required')}" placeholder="Email" name="email" formControlName="email">
             @if (getFieldError('email', 'required')) {
               <span class="error-text">Este campo es requerido</span>

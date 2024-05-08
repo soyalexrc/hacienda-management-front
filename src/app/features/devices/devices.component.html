@@ -24,6 +24,7 @@
         <th scope="col">Color</th>
         <th scope="col">Fecha Registro</th>
         <th scope="col">Tipo de Dispositivo</th>
+        <th scope="col">Check in / Check out</th>
         <th scope="col">Estatus</th>
         <th scope="col">Editar</th>
       </tr>
@@ -39,6 +40,7 @@
               <td>{{ device.propregistrationdate }}</td>
               <td>{{ device.propapprovalperson }}</td>
               <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
+              <td>Aprobado</td>
               <td>
                 <button type="button" data-toggle="modal" (click)="open(device)"  class="btn btn-primary btn-sm btn-block">
                   Editar
@@ -58,8 +60,8 @@
 
 <!--MODAL DE EDICION DE CONSULTOR-->
 <ng-template #editModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{ edit ? 'Editar' : '' }} información de el Dispositivo</h4>
+  <div class="modal-header modal-header-colored">
+    <h4 class="modal-title" id="modal-basic-title">{{ edit ? 'Editar' : '' }} información del Dispositivo</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -67,6 +69,7 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="brand">Marca</label>
             <input id="brand"  class="form-control" [ngClass]="{'input-error': getFieldError('brand', 'required')}" placeholder="Marca" name="brand" formControlName="brand">
             @if (getFieldError('brand', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -76,6 +79,7 @@
         <div class="col-12 col-md-6">
 
           <div class="form-group mt-3">
+            <label for="model">Modelo</label>
             <input id="model"  class="form-control" [ngClass]="{'input-error': getFieldError('model', 'required')}" placeholder="Modelo" name="model" formControlName="model">
             @if (getFieldError('model', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -84,6 +88,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="series">Serie</label>
             <input id="series"  class="form-control" [ngClass]="{'input-error': getFieldError('series', 'required')}" placeholder="Serie" name="series" formControlName="series">
             @if (getFieldError('series', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -92,6 +97,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="color">Color</label>
             <input id="color"  class="form-control" [ngClass]="{'input-error': getFieldError('color', 'required')}" placeholder="Color" name="color" formControlName="color">
             @if (getFieldError('color', 'required')) {
               <span class="error-text">Este campo es requerido</span>
@@ -100,7 +106,8 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
-            <input id="dateRegister"  class="form-control" [ngClass]="{'input-error': getFieldError('registerDate', 'required')}" placeholder="Fecha de registro" name="registerDate" formControlName="registerDate">
+            <label for="dateRegister">Fecha de registro</label>
+            <input id="dateRegister"  class="form-control" [ngClass]="{'input-error': getFieldError('registerDate', 'required')}" placeholder="Fecha de registro" name="registerDate" type="date" formControlName="registerDate">
             @if (getFieldError('registerDate', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
@@ -108,10 +115,22 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
+            <label for="deviceType">Tipo de dispositivo</label>
             <input id="deviceType"  class="form-control" [ngClass]="{'input-error': getFieldError('deviceType', 'required')}" placeholder="Tipo de dispositivo" name="deviceType" formControlName="deviceType">
             @if (getFieldError('deviceType', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group mt-3">
+            <label for="checkStatus">Estatus de Check In</label>
+            <select id="checkStatus" class="form-select" aria-label="Default select example">
+              <option selected>Seleccionar</option>
+              <option value="1">Pendiente</option>
+              <option value="2">Aprobado</option>
+              <option value="3">Declinado</option>
+            </select>
           </div>
         </div>
       </div>
