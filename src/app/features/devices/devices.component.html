@@ -39,8 +39,8 @@
               <td>{{ device.propcolor }}</td>
               <td>{{ device.propregistrationdate }}</td>
               <td>{{ device.propapprovalperson }}</td>
-              <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
               <td>Aprobado</td>
+              <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
               <td>
                 <button type="button" data-toggle="modal" (click)="open(device)"  class="btn btn-primary btn-sm btn-block">
                   Editar
@@ -136,7 +136,7 @@
       </div>
     </form>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="saveChanges()" [disabled]="form.invalid">Guardar cambios</button>
+  <div class="modal-footer ">
+    <button type="button" class="btn btn-outline-dark" (click)="saveChanges()" [disabled]="form.invalid">Someter</button>
   </div>
 </ng-template>
