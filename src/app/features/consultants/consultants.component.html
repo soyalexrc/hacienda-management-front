@@ -31,24 +31,24 @@
       <th scope="col">Compañía</th>
       <th scope="col">Email</th>
       <th scope="col">Estatus</th>
-      <th scope="col">Dispositivos</th>
+<!--      <th scope="col">Dispositivos</th>-->
       <th scope="col">Editar</th>
     </tr>
     </thead>
     <tbody>
       @for (consultant of CONSULTANTS_MOCK; track consultant.id) {
         <tr>
-          <td class="clickable-cell">{{consultant.name}}</td>
-          <td>{{ consultant.address }}</td>
-          <td>{{ consultant.phone }}</td>
-          <td>{{ consultant.company }}</td>
-          <td>{{ consultant.email }}</td>
-          <td>Active</td>
-          <td>
-            <button type="button" routerLink="/devices" class="btn btn-primary btn-sm btn-block">
-              Ver
-            </button>
-          </td>
+          <td routerLink="/devices" class="clickable-cell">{{consultant.name}}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.address }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.phone }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.company }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.email }}</td>
+          <td routerLink="/devices" class="clickable-cell">Active</td>
+<!--          <td>-->
+<!--            <button type="button" class="btn btn-primary btn-sm btn-block">-->
+<!--              Ver-->
+<!--            </button>-->
+<!--          </td>-->
           <td>
             <button type="button" data-toggle="modal" (click)="open(consultant)"  class="btn btn-primary btn-sm btn-block">
               Editar
