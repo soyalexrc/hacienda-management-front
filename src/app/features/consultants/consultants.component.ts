@@ -32,6 +32,11 @@ export class ConsultantsComponent implements OnInit{
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
+      address2: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      state: ['', Validators.required],
+      zipCode: ['', Validators.required],
       company: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],

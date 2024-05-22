@@ -93,16 +93,6 @@
           </div>
         </div>
         <div class="col-12 col-md-6">
-
-          <div class="form-group mt-3">
-            <label for="address">Direccion</label>
-            <input id="address"  class="form-control" [ngClass]="{'input-error': getFieldError('address', 'required')}" placeholder="Direccion" name="address" formControlName="address">
-            @if (getFieldError('address', 'required')) {
-              <span class="error-text">Este campo es requerido</span>
-            }
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
           <div class="form-group mt-3">
             <label for="phone">Telefono</label>
             <input id="phone"  class="form-control" [ngClass]="{'input-error': getFieldError('phone', 'required')}" placeholder="Telefono" name="phone" formControlName="phone">
@@ -125,6 +115,63 @@
             <label for="email">Email</label>
             <input id="email"  class="form-control" [ngClass]="{'input-error': getFieldError('email', 'required')}" placeholder="Email" name="email" formControlName="email">
             @if (getFieldError('email', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <h3>Direccion</h3>
+        </div>
+        <div class="col-12 ">
+          <div class="form-group mt-3">
+            <label for="address">Direccio 1</label>
+            <input id="address"  class="form-control" [ngClass]="{'input-error': getFieldError('address', 'required')}" placeholder="Direccion" name="address" formControlName="address">
+            @if (getFieldError('address', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-group mt-3">
+            <label for="address2">Direccion 2</label>
+            <input id="address2"  class="form-control" [ngClass]="{'input-error': getFieldError('address2', 'required')}" placeholder="Direccion 2" name="address2" formControlName="address2">
+            @if (getFieldError('address2', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <label for="country">Pais</label>
+            <input id="country"  class="form-control" [ngClass]="{'input-error': getFieldError('country', 'required')}" placeholder="Pais" name="country" formControlName="country">
+            @if (getFieldError('country', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <label for="state">Estado</label>
+            <input id="state"  class="form-control" [ngClass]="{'input-error': getFieldError('state', 'required')}" placeholder="Estado" name="state" formControlName="state">
+            @if (getFieldError('state', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <label for="city">Ciudad</label>
+            <input id="city"  class="form-control" [ngClass]="{'input-error': getFieldError('city', 'required')}" placeholder="Ciudad" name="city" formControlName="city">
+            @if (getFieldError('city', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <label for="zipCode">Codigo ZIP</label>
+            <input id="zipCode"  class="form-control" [ngClass]="{'input-error': getFieldError('zipCode', 'required')}" placeholder="Zip" name="zipCode" formControlName="zipCode">
+            @if (getFieldError('zipCode', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
           </div>
