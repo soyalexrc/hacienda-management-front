@@ -6,6 +6,8 @@ import {NgClass} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {SpinnerComponent} from "../../shared/components/spinner/spinner.component";
 import {DeviceService} from "../../core/services/device.service";
+import {LoginResult} from "../../core/interfaces/auth";
+import {AuthService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-devices',
@@ -27,13 +29,16 @@ export class DevicesComponent implements OnInit{
   devices: DeviceInfo[] = [];
   edit = false;
   loading = false;
+  user!: LoginResult;
 
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
   private devicesService = inject(DeviceService);
 
   closeResult = '';
 
   ngOnInit() {
+    this.user = this.auth.getCurrentUser;
     this.getDevices();
     this.form = this.fb.group({
       brand: ['', Validators.required],
