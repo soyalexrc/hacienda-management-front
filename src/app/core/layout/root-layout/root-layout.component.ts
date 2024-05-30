@@ -7,6 +7,7 @@ import { heroBellSolid } from '@ng-icons/heroicons/solid';
 import {NotificationService} from "../../services/notification.service";
 import {NotesInfo, NotificationsResult} from "../../interfaces/notification";
 import {Subscription} from "rxjs";
+import {ToastContainerComponent} from "../../../shared/components/toast-container/toast-container.component";
 
 @Component({
   selector: 'app-root-layout',
@@ -15,7 +16,8 @@ import {Subscription} from "rxjs";
     RouterOutlet,
     NgIf,
     NgIconComponent,
-    RouterLink
+    RouterLink,
+    ToastContainerComponent
   ],
   templateUrl: './root-layout.component.html',
   styleUrl: './root-layout.component.scss',

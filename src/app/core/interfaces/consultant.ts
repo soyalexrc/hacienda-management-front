@@ -26,3 +26,24 @@ export interface ConsultantForm {
   company: FormControl<string | null>;
   email: FormControl<string | null>;
 }
+
+export interface UpdateConsultantResult {
+  assetId: number,
+  hasError: boolean,
+  errorDisplay: string,
+  errorDesc: string,
+  errorNum: number,
+  errorSubject: string,
+  message: string,
+}
+
+
+export interface UpdateConsultantPayload {
+  address1: string,
+  address2: string,
+  city: string,
+  zipcode: string,
+  phone: string,
+  roleid: number,
+  assetid: number,
+}

@@ -2,9 +2,12 @@ import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Consultant, ConsultantForm} from "../../core/interfaces/consultant";
+import {Consultant, ConsultantForm, UpdateConsultantPayload} from "../../core/interfaces/consultant";
 import {CONSULTANTS_MOCK} from "../../shared/utils/data/consultant";
 import {NgClass} from "@angular/common";
+import {ConsultantService} from "../../core/services/consultant.service";
+import {AuthService} from "../../core/services/auth.service";
+import {ToastService} from "../../core/services/toast.service";
 
 @Component({
   selector: 'app-consultants',
@@ -13,33 +16,39 @@ import {NgClass} from "@angular/common";
     RouterLink,
     FormsModule,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
   ],
   templateUrl: './consultants.component.html',
-  styleUrl: './consultants.component.scss'
+  styleUrl: './consultants.component.scss',
 })
 export class ConsultantsComponent implements OnInit{
   private modalService = inject(NgbModal);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
+  private consultantService = inject(ConsultantService);
   @ViewChild('editModal') editModal = TemplateRef<any>;
+  @ViewChild('successToast') successToast! : TemplateRef<any>;
+  @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
   form!: FormGroup<ConsultantForm>;
   protected readonly CONSULTANTS_MOCK = CONSULTANTS_MOCK;
 
   private fb = inject(FormBuilder);
   edit = false;
   closeResult = '';
+  updateLoading = false;
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      address2: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      company: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      name: [''],
+      address: [''],
+      address2: [''],
+      city: [''],
+      country: [''],
+      state: [''],
+      zipCode: [''],
+      company: [''],
+      email: [''],
+      phone: [''],
     })
 
     this.form.get('name')?.disable();
@@ -81,7 +90,28 @@ export class ConsultantsComponent implements OnInit{
   }
 
   saveChanges() {
-    this.modalService.dismissAll('save changes')
+    const payload: UpdateConsultantPayload = {
+      address1: this.form.get('address1')?.value ?? '',
+      address2: this.form.get('address2')?.value ?? '',
+      city: this.form.get('city')?.value ?? '',
+      zipcode: this.form.get('zipcode')?.value ?? '',
+      phone: this.form.get('phone')?.value ?? '',
+      roleid: this.authService.getCurrentUser.mainUser.roleID,
+      assetid: 1, // TODO ajustar
+    }
+    this.updateLoading = true;
+    this.consultantService.updateConsultant(payload).subscribe(res => {
+      if (!res.hasError) {
+        // TODO actualizar tabla
+        this.modalService.dismissAll('save changes');
+        this.toastService.show({template: this.successToast, classname: 'bg-success text-light', delay: 10000})
+      }
+    }, error => {
+      console.log(error)
+    }, () => {
+      this.updateLoading = false;
+    })
+
   }
 
   updateForm(consultant: Consultant) {

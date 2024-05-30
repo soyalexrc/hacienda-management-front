@@ -21,8 +21,8 @@ export class IndexPageComponent implements OnInit{
         this.router.navigate(['/companies'], {replaceUrl: true})
         break
       case 1:
-        // this.router.navigate(['/consultants'], {replaceUrl: true})
-        this.router.navigate(['/devices'], {replaceUrl: true})
+        this.router.navigate(['/consultants'], {replaceUrl: true})
+        // this.router.navigate(['/devices'], {replaceUrl: true})
         break
       case 2:
         this.router.navigate(['/devices'], {replaceUrl: true})
