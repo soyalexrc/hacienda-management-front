@@ -19,3 +19,12 @@ export interface NotesInfo {
   notestatus:      boolean;
   notedeleteddate: string;
 }
+
+export interface NotificationActionResult {
+  hasError: boolean;
+  errorDisplay: string;
+  errorDesc: string;
+  errorNum: number;
+  errorSubject: string;
+  message: string;
+}
