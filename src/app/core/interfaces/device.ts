@@ -46,3 +46,38 @@ export interface DeviceInfo {
   propupdatedby:        string;
   proplastupdate:       string;
 }
+
+export interface UpdateCreateDevicePayload {
+  deviceid:        number;
+  action:         UpdateCheckInStatusDeviceType;
+  assetId?:         number;
+  marca?:           string;
+  modelo?:          string;
+  color?:           string;
+  tipo?:            string;
+  serie?:           string;
+  fechaDeRegistro?: string;
+  fechaDeCheckout?: string;
+  fechaDeCheckin?:  string;
+  status?:          boolean;
+  checkIn_Out?:     string;
+  approval_status?: string;
+  approval_person?: string;
+  checkIn_status?:  string;
+  updatedBy?:       string;
+}
+
+export type UpdateCheckInStatusDeviceType =  'INSERT' | 'UPDATE' | 'DEACTIVATE' | 'ACTIVATE' | 'DECLINED' | 'APPROVED';
+
+
+export interface UpdateCreateDeviceResult {
+  devId:        number;
+  checkin_out:  string;
+  devStatus:    number;
+  hasError:     boolean;
+  errorDisplay: string;
+  errorDesc:    string;
+  errorNum:     number;
+  errorSubject: string;
+  message:      string;
+}
