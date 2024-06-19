@@ -10,7 +10,6 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
   private currentUser: BehaviorSubject<LoginResult | {}> = new BehaviorSubject(JSON.parse(sessionStorage.getItem('currentUser') ?? '{}'));
-  baseUrl = environment.baseUrl;
   private http = inject(HttpClient);
   private router = inject(Router);
   isAuthenticated(): boolean {
@@ -19,7 +18,25 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Observable<LoginResult> {
-    return this.http.get<LoginResult>(`${this.baseUrl}/User/GetUser?useremail=${email}&userpass=${password}`);
+    return this.http.get<LoginResult>(`api/Users/GetUser`, {
+      headers: {
+        asset_id: email,
+        userpass: password
+      }
+    });
+  }
+
+  changePassword(userId: string, userPass: string): Observable<any> {
+    return this.http.get(`/api/Users/GetPass`, {
+      headers: {
+        userid: userId,
+        userpass: userPass
+      }
+    });
+  }
+
+  getOtp(userId: string): Observable<any> {
+    return this.http.get(`/api/Users/GetOTP?assetid=${userId}`);
   }
 
   signOff() {

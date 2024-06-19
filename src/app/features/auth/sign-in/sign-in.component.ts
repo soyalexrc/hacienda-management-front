@@ -5,6 +5,8 @@ import {LoginForm, RegisterForm} from "../../../core/interfaces/auth";
 import {NgClass} from "@angular/common";
 import {AuthService} from "../../../core/services/auth.service";
 import {SpinnerComponent} from "../../../shared/components/spinner/spinner.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AlertComponent} from "../../../shared/components/alert/alert.component";
 
 @Component({
   selector: 'app-sign-in',
@@ -20,6 +22,7 @@ import {SpinnerComponent} from "../../../shared/components/spinner/spinner.compo
 })
 export class SignInComponent implements OnInit{
   form!: FormGroup<LoginForm>;
+  private modalService = inject(NgbModal);
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private auth = inject(AuthService)
@@ -43,8 +46,12 @@ export class SignInComponent implements OnInit{
       sessionStorage.setItem('currentUser', JSON.stringify(result));
       this.auth.updateCurrentUser(result);
       this.router.navigate(['/']);
-    }, () => {
-
+    }, (error) => {
+        this.isSubmitting = false;
+        console.log(error);
+        const modalRef = this.modalService.open(AlertComponent);
+        modalRef.componentInstance.title = error.name;
+        modalRef.componentInstance.message = error.message;
     }, () => {
       this.isSubmitting = false;
     });

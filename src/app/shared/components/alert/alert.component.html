@@ -1,0 +1,15 @@
+<div>
+  <div class="modal-header modal-header-colored">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    {{message}}
+  </div>
+  <div class="modal-footer ">
+    <button type="button" aria-label="Close" class="btn btn-outline-dark" (click)="activeModal.dismiss()">
+      Aceptar
+    </button>
+  </div>
+</div>
+

@@ -10,8 +10,12 @@ import {DevicesResult, UpdateCreateDevicePayload, UpdateCreateDeviceResult} from
 export class DeviceService {
   private http = inject(HttpClient);
   baseUrl = environment.baseUrl;
-  getDevices(): Observable<DevicesResult> {
-    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices`);
+  getDevices(assetId = 0): Observable<DevicesResult> {
+    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices`, {
+      headers: {
+        assetid: assetId.toString()
+      }
+    });
   }
 
   manageDevices(payload: UpdateCreateDevicePayload): Observable<UpdateCreateDeviceResult> {

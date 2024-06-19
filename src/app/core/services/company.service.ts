@@ -10,7 +10,11 @@ import {Observable} from "rxjs";
 export class CompanyService {
   private http = inject(HttpClient);
   baseUrl = environment.baseUrl;
-  getCompanies(): Observable<CompaniesResult> {
-    return this.http.get<CompaniesResult>(`${this.baseUrl}/Users/GetCompany`);
+  getCompanies(companyId = 0): Observable<CompaniesResult> {
+    return this.http.get<CompaniesResult>(`${this.baseUrl}/Users/GetCompany`, {
+      headers: {
+        companyid: companyId.toString()
+      }
+    });
   }
 }
