@@ -19,6 +19,8 @@ import {NgClass} from "@angular/common";
 })
 export class ForgotPasswordComponent implements OnInit{
   form!: FormGroup<ForgotPasswordForm>;
+  step = 1;
+  loading = false;
 
   private fb = inject(FormBuilder);
   private auth = inject(AuthService)
@@ -26,6 +28,7 @@ export class ForgotPasswordComponent implements OnInit{
   ngOnInit() {
     this.form = this.fb.group({
       username: ['', Validators.required],
+      newPass: ['', Validators.required],
     })
   }
 
@@ -33,6 +36,18 @@ export class ForgotPasswordComponent implements OnInit{
     return this.form.get(field)?.dirty && this.form.get(field)?.hasError(error)
   }
 
+  validateEmail() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+      this.step = 2;
+    }, 2000)
+  }
+
   recoverAccess() {
+  }
+
+  get username() {
+    return this.form.get('username')?.value;
   }
 }

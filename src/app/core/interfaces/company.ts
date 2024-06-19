@@ -43,3 +43,21 @@ export interface CompanyInfo {
   company_deleted_date: string;
 }
 
+
+export interface UpdateCompanyResult {
+
+}
+
+
+export interface UpdateCompanyPayload {
+    company_id: string,
+    company_name: string,
+    company_add1: string,
+    company_add2: string,
+    company_city: string,
+    company_zip: string,
+    company_phone: string,
+    company_status: true,
+    company_updateby: string,
+    company_officer_id: 0
+}

@@ -4,6 +4,7 @@ import {authGuard} from "./core/guards/auth.guard";
 import {consultantGuard} from "./core/guards/consultant.guard";
 import {adminGuard} from "./core/guards/admin.guard";
 import {deviceGuard} from "./core/guards/device.guard";
+import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,12 @@ export const routes: Routes = [
         path: 'notifications',
         canActivate: [authGuard],
         loadComponent: () => import('./features/notifications/notifications.component').then(c => c.NotificationsComponent)
+      },
+      {
+        path: 'profile',
+        canActivate: [authGuard],
+        component: ProfileComponent,
+        loadChildren: () => import('./features/profile/routes').then(c => c.routes)
       },
       {
         path: 'sign-in',

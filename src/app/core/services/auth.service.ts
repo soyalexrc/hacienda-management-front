@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class AuthService {
   private currentUser: BehaviorSubject<LoginResult | {}> = new BehaviorSubject(JSON.parse(sessionStorage.getItem('currentUser') ?? '{}'));
   private http = inject(HttpClient);
+  private baseUrl = environment.baseUrl;
   private router = inject(Router);
   isAuthenticated(): boolean {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -18,25 +19,25 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Observable<LoginResult> {
-    return this.http.get<LoginResult>(`api/Users/GetUser`, {
+    return this.http.get<LoginResult>(`${this.baseUrl}/Users/GetUser`, {
       headers: {
-        asset_id: email,
+        useremail: email,
         userpass: password
       }
     });
   }
 
-  changePassword(userId: string, userPass: string): Observable<any> {
-    return this.http.get(`/api/Users/GetPass`, {
+  changePassword(userId: string | number, userPass: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Users/GetPass`, {
       headers: {
-        userid: userId,
+        asset_id: userId.toString(),
         userpass: userPass
       }
     });
   }
 
   getOtp(userId: string): Observable<any> {
-    return this.http.get(`/api/Users/GetOTP?assetid=${userId}`);
+    return this.http.get(`${this.baseUrl}/Users/GetOTP?assetid=${userId}`);
   }
 
   signOff() {

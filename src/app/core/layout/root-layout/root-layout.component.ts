@@ -3,7 +3,7 @@ import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
 import {NgIconComponent, provideIcons} from "@ng-icons/core";
-import { heroBellSolid } from '@ng-icons/heroicons/solid';
+import { heroBellSolid, heroUserCircleSolid } from '@ng-icons/heroicons/solid';
 import {NotificationService} from "../../services/notification.service";
 import {NotesInfo, NotificationsResult} from "../../interfaces/notification";
 import {Subscription} from "rxjs";
@@ -21,7 +21,7 @@ import {ToastContainerComponent} from "../../../shared/components/toast-containe
   ],
   templateUrl: './root-layout.component.html',
   styleUrl: './root-layout.component.scss',
-  viewProviders: [provideIcons({ heroBellSolid })]
+  viewProviders: [provideIcons({ heroBellSolid, heroUserCircleSolid })]
 })
 export class RootLayoutComponent implements OnInit, OnDestroy{
   private router = inject(Router);
