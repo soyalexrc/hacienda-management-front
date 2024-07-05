@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: 'http://hacienda-backend.intellisoftpr.com/api'
+  baseUrl: 'http://localhost:5009/api'
 };

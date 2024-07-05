@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {CompaniesResult} from "../interfaces/company";
+import {CompaniesResult, UpdateCompanyPayload, UpdateCompanyResult} from "../interfaces/company";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 
@@ -16,5 +16,9 @@ export class CompanyService {
         companyid: companyId.toString()
       }
     });
+  }
+
+  updateCompany(payload: UpdateCompanyPayload): Observable<UpdateCompanyResult> {
+    return this.http.post<UpdateCompanyResult>(`${this.baseUrl}/Users/updateCompany`, payload);
   }
 }

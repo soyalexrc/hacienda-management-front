@@ -15,6 +15,12 @@ export interface LoginForm {
 
 export interface ForgotPasswordForm {
   username: FormControl<string | null>;
+  newPass: FormControl<string | null>;
+}
+
+export interface ChangePasswordForm {
+  currentPass: FormControl<string | null>;
+  newPass: FormControl<string | null>;
 }
 
 export interface LoginResult {
