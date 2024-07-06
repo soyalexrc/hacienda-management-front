@@ -58,6 +58,8 @@ export class DevicesComponent implements OnInit{
       registerDate: [''],
       deviceType: ['', Validators.required],
       color: ['', Validators.required],
+      deviceid: [0 , Validators.required],
+      assetId: [0, Validators.required]
     })
   }
 

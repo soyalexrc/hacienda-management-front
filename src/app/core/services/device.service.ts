@@ -19,7 +19,7 @@ export class DeviceService {
   }
 
   manageDevices(payload: UpdateCreateDevicePayload): Observable<UpdateCreateDeviceResult> {
-    return this.http.post<UpdateCreateDeviceResult>(`${this.baseUrl}/Users/updateDevInfo`, payload);
+    return this.http.post<UpdateCreateDeviceResult>(`${this.baseUrl}/Users/updateDeviceInfo`, payload);
   }
 
 }

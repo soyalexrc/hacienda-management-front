@@ -6,6 +6,11 @@ export interface CompanyForm {
   phone: FormControl<string | null>;
   email: FormControl<string | null>;
   companyData: FormControl<string | null>;
+  companyId: FormControl<number | null>;
+  status: FormControl<number | null>;
+  officerId: FormControl<number | null>;
+  updatedBy: FormControl<number | null>;
+  zip: FormControl<string | null>;
 }
 
 export interface Company {
@@ -15,6 +20,11 @@ export interface Company {
   phone: string;
   email: string;
   companyData: string;
+  zip: string;
+  status: boolean,
+  officerId: number,
+  updatedBy: string,
+  companyId: number;
 }
 
 export interface CompaniesResult {
@@ -45,7 +55,13 @@ export interface CompanyInfo {
 
 
 export interface UpdateCompanyResult {
-
+  company_id:   number;
+  errorDesc:    string;
+  errorDisplay: string;
+  errorNum:     number;
+  errorSubject: string;
+  hasError:     boolean;
+  message:      string;
 }
 
 
@@ -57,7 +73,7 @@ export interface UpdateCompanyPayload {
     company_city: string,
     company_zip: string,
     company_phone: string,
-    company_status: true,
+    company_status: boolean,
     company_updateby: string,
-    company_officer_id: 0
+    company_officer_id: number
 }

@@ -17,6 +17,8 @@ export interface DeviceForm {
   color: FormControl<string | null>;
   registerDate: FormControl<string | null>;
   deviceType: FormControl<string | null>;
+  deviceid: FormControl<number | null>;
+  assetId: FormControl<number | null>;
 }
 
 export interface DevicesResult {
