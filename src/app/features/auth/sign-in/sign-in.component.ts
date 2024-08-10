@@ -42,10 +42,16 @@ export class SignInComponent implements OnInit{
     this.isSubmitting = true;
     const {username, password} = this.form.value;
     this.auth.signIn(username!, password!).subscribe(result => {
-      sessionStorage.setItem('isLoggedIn', String(true));
-      sessionStorage.setItem('currentUser', JSON.stringify(result));
-      this.auth.updateCurrentUser(result);
-      this.router.navigate(['/']);
+      if (!result.hasError) {
+        sessionStorage.setItem('isLoggedIn', String(true));
+        sessionStorage.setItem('currentUser', JSON.stringify(result));
+        this.auth.updateCurrentUser(result);
+        this.router.navigate(['/']);
+      } else {
+        const modalRef = this.modalService.open(AlertComponent);
+        modalRef.componentInstance.title = "Error en autenticacion";
+        modalRef.componentInstance.message = result.errorDisplay
+      }
     }, (error) => {
         this.isSubmitting = false;
         console.log(error);
