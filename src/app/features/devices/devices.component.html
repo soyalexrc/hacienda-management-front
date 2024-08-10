@@ -51,13 +51,13 @@
               <td>{{ device.propcolor }}</td>
               <td>{{ device.propregistrationdate }}</td>
               <td>{{ device.propapprovalperson }}</td>
-              <td>
-                <select class="form-select" aria-label="Default select example" (change)="updateCheckInStatus($event, device.propid)">
-                  <option selected disabled>Seleccionar</option>
-                  <option value="PENDING">Pendiente</option>
-                  <option value="APPROVED">Aprobado</option>s
-                  <option value="DECLINED">Declinado</option>
-                </select>
+              <td> {{device.propcheckStatus}}
+<!--                <select class="form-select" aria-label="Default select example" (change)="updateCheckInStatus($event, device.propid)">-->
+<!--                  <option selected disabled>Seleccionar</option>-->
+<!--                  <option value="PENDING">Pendiente</option>-->
+<!--                  <option value="APPROVED">Aprobado</option>s-->
+<!--                  <option value="DECLINED">Declinado</option>-->
+<!--                </select>-->
               </td>
               <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
               <td>
