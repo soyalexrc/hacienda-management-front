@@ -12,8 +12,10 @@ export interface Device {
 
 export interface DeviceForm {
   brand: FormControl<string | null>;
+  alternateStatus: FormControl<string | null>;
   model: FormControl<string | null>;
   series: FormControl<string | null>;
+  checkIn_status: FormControl<string | null>;
   color: FormControl<string | null>;
   registerDate: FormControl<string | null>;
   deviceType: FormControl<string | null>;
@@ -51,7 +53,7 @@ export interface DeviceInfo {
 
 export interface UpdateCreateDevicePayload {
   deviceid:        number;
-  action:         UpdateCheckInStatusDeviceType;
+  action:         string;
   assetId?:         number;
   marca?:           string;
   modelo?:          string;
@@ -82,4 +84,12 @@ export interface UpdateCreateDeviceResult {
   errorNum:     number;
   errorSubject: string;
   message:      string;
+}
+
+export interface BrandsResult {
+  makeInfo: { compMake: string }[]
+}
+
+export interface ModelsResult {
+  modelInfo: { model: string }[]
 }

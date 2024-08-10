@@ -19,27 +19,31 @@ import {ToastService} from "../../core/services/toast.service";
 @Component({
   selector: 'app-devices',
   standalone: true,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgClass,
-        RouterLink,
-        SpinnerComponent
-    ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    RouterLink,
+    SpinnerComponent
+  ],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss'
 })
-export class DevicesComponent implements OnInit{
+export class DevicesComponent implements OnInit {
   private modalService = inject(NgbModal);
   @ViewChild('editModal') editModal = TemplateRef<any>;
-  @ViewChild('successToast') successToast! : TemplateRef<any>;
-  @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
+  @ViewChild('successToast') successToast!: TemplateRef<any>;
+  @ViewChild('dangerToast') dangerToast!: TemplateRef<any>;
   form!: FormGroup<DeviceForm>;
   devices: DeviceInfo[] = [];
   edit = false;
   loading = false;
   updateLoading = false;
   user!: LoginResult;
+  status = 'Activar';
+
+  modelsByBrand: { model: string }[] = []
+  brands: { compMake: string }[] = []
 
   private fb = inject(FormBuilder);
   private toastService = inject(ToastService);
@@ -47,8 +51,12 @@ export class DevicesComponent implements OnInit{
   private devicesService = inject(DeviceService);
 
   closeResult = '';
+  showSometerButton = false;
 
   ngOnInit() {
+    this.devicesService.getBrands().subscribe(result => {
+      this.brands = result.makeInfo
+    })
     this.user = this.auth.getCurrentUser;
     this.getDevices();
     this.form = this.fb.group({
@@ -56,9 +64,11 @@ export class DevicesComponent implements OnInit{
       model: ['', Validators.required],
       series: ['', Validators.required],
       registerDate: [''],
+      checkIn_status: [''],
+      alternateStatus: [''],
       deviceType: ['', Validators.required],
       color: ['', Validators.required],
-      deviceid: [0 , Validators.required],
+      deviceid: [0, Validators.required],
       assetId: [0, Validators.required]
     })
   }
@@ -76,11 +86,12 @@ export class DevicesComponent implements OnInit{
       }
       this.edit = true;
       this.updateForm(data);
+      this.getModelsByBrand(device.propmake);
     } else {
       this.form.reset();
       this.edit = false;
     }
-    this.modalService.open(this.editModal, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalService.open(this.editModal, {ariaLabelledBy: 'modal-basic-title'}).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -128,7 +139,7 @@ export class DevicesComponent implements OnInit{
       if (!res.hasError) {
         // TODO actualizar tabla
         this.getDevices(false);
-        this.toastService.show({ template: this.successToast, classname: 'bg-success text-light', delay: 10000 })
+        this.toastService.show({template: this.successToast, classname: 'bg-success text-light', delay: 10000})
         this.modalService.dismissAll('save changes')
 
       }
@@ -140,10 +151,10 @@ export class DevicesComponent implements OnInit{
   }
 
   updateCheckInStatus(event: any, id: number) {
-    this.devicesService.manageDevices({ deviceid: id, action: event.target.value }).subscribe(res => {
+    this.devicesService.manageDevices({deviceid: id, action: event.target.value}).subscribe(res => {
       if (!res.hasError) {
         this.getDevices(false);
-        this.toastService.show({ template: this.successToast, classname: 'bg-success text-light' })
+        this.toastService.show({template: this.successToast, classname: 'bg-success text-light'})
       }
     })
   }
@@ -169,4 +180,63 @@ export class DevicesComponent implements OnInit{
     })
   }
 
+  getModelsByBrand(brand: string) {
+    this.devicesService.getModels(brand).subscribe(result => {
+      this.modelsByBrand = result.modelInfo
+    })
+  }
+
+  get model() {
+    return this.form.get('model')?.value
+  }
+
+  get brand() {
+    return this.form.get('brand')?.value
+  }
+
+  handleChangeBrand(event: any) {
+    this.getModelsByBrand(event.target.value)
+  }
+
+  handleChangeState(event: any) {
+    this.showSometerButton = true;
+  }
+
+  handleChangeStatus() {
+    let action = '';
+    switch (this.status) {
+      case 'Activar':
+        action = 'Submitted CO';
+        break;
+      case 'Desactivar':
+        action = 'Submitted CI';
+        break;
+      case 'Aprobado':
+        action = 'Approved';
+        break;
+      case 'Declinado':
+        action = 'Declined';
+        break;
+    }
+
+    const payload: UpdateCreateDevicePayload = {
+      action,
+      deviceid: this.form.get('deviceid')?.value!,
+    }
+    this.devicesService.manageDevices(payload).subscribe(res => {
+      if (!res.hasError) {
+        // TODO actualizar tabla
+        this.getDevices(false);
+        this.toastService.show({template: this.successToast, classname: 'bg-success text-light', delay: 10000})
+        this.modalService.dismissAll('save changes')
+      } else {
+        console.log(res);
+        this.toastService.show({template: this.dangerToast, classname: 'bg-danger text-light', delay: 10000})
+      }
+    }, (e) => {
+      console.log(e);
+    }, () => {
+      this.updateLoading = false;
+    })
+  }
 }

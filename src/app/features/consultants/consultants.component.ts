@@ -8,6 +8,7 @@ import {NgClass} from "@angular/common";
 import {ConsultantService} from "../../core/services/consultant.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ToastService} from "../../core/services/toast.service";
+import {User} from "../../core/interfaces/auth";
 
 @Component({
   selector: 'app-consultants',
@@ -30,7 +31,8 @@ export class ConsultantsComponent implements OnInit{
   @ViewChild('successToast') successToast! : TemplateRef<any>;
   @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
   form!: FormGroup<ConsultantForm>;
-  protected readonly CONSULTANTS_MOCK = CONSULTANTS_MOCK;
+  consultants: User[] = []
+  // protected readonly CONSULTANTS_MOCK = CONSULTANTS_MOCK;
 
   private fb = inject(FormBuilder);
   edit = false;
@@ -38,12 +40,13 @@ export class ConsultantsComponent implements OnInit{
   updateLoading = false;
 
   ngOnInit() {
+    this.consultants = this.authService.getCurrentUser.secondaryUser;
     this.form = this.fb.group({
       name: [''],
       address: [''],
       address2: [''],
       city: [''],
-      country: [''],
+      country: ['PUERTO RICO'],
       state: [''],
       zipCode: [''],
       company: [''],
@@ -53,10 +56,11 @@ export class ConsultantsComponent implements OnInit{
 
     this.form.get('name')?.disable();
     this.form.get('email')?.disable();
+    this.form.get('country')?.disable();
     this.form.get('company')?.disable();
   }
 
-  open(consultant?: Consultant) {
+  open(consultant?: User) {
     if (consultant) {
       this.edit = true;
       this.updateForm(consultant);
@@ -114,12 +118,20 @@ export class ConsultantsComponent implements OnInit{
 
   }
 
-  updateForm(consultant: Consultant) {
-    Object.keys(consultant).forEach((key) => {
-      if (consultant[key as keyof Consultant] !== 'id') {
-        this.form.get(key)?.patchValue(consultant[key as keyof Consultant])
-      }
-    })
+  updateForm(consultant: User) {
+    console.log(consultant);
+    this.form.get('name')?.setValue(consultant.name);
+    this.form.get('address')?.setValue(consultant.add1);
+    this.form.get('address2')?.setValue(consultant.add2);
+    this.form.get('email')?.setValue(consultant.email);
+    this.form.get('phone')?.setValue(consultant.phone);
+    this.form.get('city')?.setValue(consultant.city);
+    this.form.get('zipCode')?.setValue(consultant.zip);
+    // Object.keys(consultant).forEach((key) => {
+    //   if (consultant[key as keyof User] !== 'id') {
+    //     this.form.get(key)?.patchValue(consultant[key as keyof User])
+    //   }
+    // })
   }
 
 }

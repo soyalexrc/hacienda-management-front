@@ -36,10 +36,10 @@
     </tr>
     </thead>
     <tbody>
-      @for (consultant of CONSULTANTS_MOCK; track consultant.id) {
+      @for (consultant of consultants; track consultant.email) {
         <tr>
           <td routerLink="/devices" class="clickable-cell">{{consultant.name}}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.address }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.add1 }}</td>
           <td routerLink="/devices" class="clickable-cell">{{ consultant.phone }}</td>
           <td routerLink="/devices" class="clickable-cell">{{ consultant.company }}</td>
           <td routerLink="/devices" class="clickable-cell">{{ consultant.email }}</td>
@@ -104,7 +104,7 @@
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
             <label for="company">Nombre de compania</label>
-            <input id="company"  class="form-control" [ngClass]="{'input-error': getFieldError('company', 'required')}" placeholder="Compañía" name="company" formControlName="company">
+            <input id="company"  class="form-control" [ngClass]="{'input-error': getFieldError('company', 'required')}" name="company" formControlName="company">
             @if (getFieldError('company', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
@@ -124,7 +124,7 @@
         </div>
         <div class="col-12 ">
           <div class="form-group mt-3">
-            <label for="address">Direccio 1</label>
+            <label for="address">Direccion 1</label>
             <input id="address"  class="form-control" [ngClass]="{'input-error': getFieldError('address', 'required')}" placeholder="Direccion" name="address" formControlName="address">
             @if (getFieldError('address', 'required')) {
               <span class="error-text">Este campo es requerido</span>
