@@ -5,7 +5,6 @@ import {
   Device,
   DeviceForm,
   DeviceInfo,
-  UpdateCheckInStatusDeviceType,
   UpdateCreateDevicePayload
 } from "../../core/interfaces/device";
 import {NgClass} from "@angular/common";
@@ -52,12 +51,15 @@ export class DevicesComponent implements OnInit {
 
   closeResult = '';
   showSometerButton = false;
+  deviceId = 0;
+  assetId = 0;
 
   ngOnInit() {
     this.devicesService.getBrands().subscribe(result => {
       this.brands = result.makeInfo
     })
     this.user = this.auth.getCurrentUser;
+    this.assetId = this.user.mainUser.assetID;
     this.getDevices();
     this.form = this.fb.group({
       brand: ['', Validators.required],
@@ -68,8 +70,6 @@ export class DevicesComponent implements OnInit {
       alternateStatus: [''],
       deviceType: ['', Validators.required],
       color: ['', Validators.required],
-      deviceid: [0, Validators.required],
-      assetId: [0, Validators.required]
     })
   }
 
@@ -85,6 +85,7 @@ export class DevicesComponent implements OnInit {
         series: device.propserial
       }
       this.edit = true;
+      this.deviceId = device.propid;
       this.updateForm(data);
       this.getModelsByBrand(device.propmake);
     } else {
@@ -121,16 +122,17 @@ export class DevicesComponent implements OnInit {
     const payload: UpdateCreateDevicePayload = {
       action: this.edit ? 'UPDATE' : 'INSERT',
       color: this.form.get('color')?.value ?? '',
-      modelo: this.form.get('modelo')?.value ?? '',
-      marca: this.form.get('marca')?.value ?? '',
-      tipo: this.form.get('tipo')?.value ?? '',
+      modelo: this.form.get('model')?.value ?? '',
+      marca: this.form.get('brand')?.value ?? '',
+      tipo: this.form.get('deviceType')?.value ?? '',
       fechaDeRegistro: this.form.get('fechaDeRegistro')?.value ?? '',
-      status: this.form.get('status')?.value ?? false,
       checkIn_status: this.form.get('checkIn_status')?.value ?? '',
       approval_person: this.form.get('approval_person')?.value ?? '',
       approval_status: this.form.get('approval_status')?.value ?? '',
-      assetId: this.form.get('assetId')?.value!,
-      deviceid: this.form.get('deviceid')?.value!,
+      assetId: this.assetId,
+      deviceid: this.deviceId,
+      updatedBy: this.auth.getCurrentUser.mainUser.name,
+      status: '1'
     }
     if (this.edit) {
       payload.updatedBy = this.auth.getCurrentUser.mainUser.name;
@@ -221,7 +223,9 @@ export class DevicesComponent implements OnInit {
 
     const payload: UpdateCreateDevicePayload = {
       action,
-      deviceid: this.form.get('deviceid')?.value!,
+      deviceid: this.deviceId,
+      assetId: this.assetId,
+      updatedBy: this.auth.getCurrentUser.mainUser.name,
     }
     this.devicesService.manageDevices(payload).subscribe(res => {
       if (!res.hasError) {

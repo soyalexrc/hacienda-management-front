@@ -19,8 +19,6 @@ export interface DeviceForm {
   color: FormControl<string | null>;
   registerDate: FormControl<string | null>;
   deviceType: FormControl<string | null>;
-  deviceid: FormControl<number | null>;
-  assetId: FormControl<number | null>;
 }
 
 export interface DevicesResult {
@@ -63,7 +61,7 @@ export interface UpdateCreateDevicePayload {
   fechaDeRegistro?: string;
   fechaDeCheckout?: string;
   fechaDeCheckin?:  string;
-  status?:          boolean;
+  status?:          string;
   checkIn_Out?:     string;
   approval_status?: string;
   approval_person?: string;
