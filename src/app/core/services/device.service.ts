@@ -17,15 +17,19 @@ export class DeviceService {
   private http = inject(HttpClient);
   baseUrl = environment.baseUrl;
   getDevices(assetId = 0): Observable<DevicesResult> {
-    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices`, {
-      headers: {
-        assetid: assetId.toString()
-      }
-    });
+    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices?assetid=${assetId}`);
   }
 
   manageDevices(payload: UpdateCreateDevicePayload): Observable<UpdateCreateDeviceResult> {
     return this.http.post<UpdateCreateDeviceResult>(`${this.baseUrl}/Users/updateDeviceInfo`, payload);
+  }
+
+  getColors(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/Users/GetColors`);
+  }
+
+  getDeviceTypes(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/Users/GetDeviceType`);
   }
 
   getBrands(): Observable<BrandsResult> {

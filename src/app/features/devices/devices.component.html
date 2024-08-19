@@ -127,8 +127,13 @@
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
             <label for="color">Color</label>
-            <input id="color" class="form-control" [ngClass]="{'input-error': getFieldError('color', 'required')}"
-                   placeholder="Color" name="color" formControlName="color">
+            <select
+              [ngClass]="{'input-error': getFieldError('color', 'required')}"
+              id="color" class="form-select" name="color" formControlName="color">
+              @for (color of colorsList; track color) {
+                <option [value]="color">{{ color }}</option>
+              }
+            </select>
             @if (getFieldError('color', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
@@ -148,9 +153,13 @@
         <div class="col-12 col-md-6">
           <div class="form-group mt-3">
             <label for="deviceType">Tipo de dispositivo</label>
-            <input id="deviceType" class="form-control"
-                   [ngClass]="{'input-error': getFieldError('deviceType', 'required')}"
-                   placeholder="Tipo de dispositivo" name="deviceType" formControlName="deviceType">
+            <select
+              [ngClass]="{'input-error': getFieldError('deviceType', 'required')}"
+              id="deviceType" class="form-select" name="deviceType" formControlName="deviceType">
+              @for (deviceType of deviceTypesList; track deviceType) {
+                <option [value]="deviceType">{{ deviceType }}</option>
+              }
+            </select>
             @if (getFieldError('deviceType', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }

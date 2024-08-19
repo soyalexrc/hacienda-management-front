@@ -11,12 +11,9 @@ export class NotificationService {
   private http = inject(HttpClient);
   notifications: BehaviorSubject<NotesInfo[]> = new BehaviorSubject<NotesInfo[]>([]);
   baseUrl = environment.baseUrl;
+
   getNotifications(assetId = 0): void{
-    this.http.get<NotificationsResult>(`${this.baseUrl}/Users/GetNotes`, {
-      headers: {
-        assetid: assetId.toString()
-      }
-    }).subscribe(result => {
+    this.http.get<NotificationsResult>(`${this.baseUrl}/Users/GetNotes?assetid=${assetId}`).subscribe(result => {
       this.notifications.next(result.notesInfo);
     })
   }

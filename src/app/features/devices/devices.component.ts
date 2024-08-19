@@ -54,6 +54,9 @@ export class DevicesComponent implements OnInit {
   deviceId = 0;
   assetId = 0;
 
+  colorsList: string[] = []
+  deviceTypesList: string[] = []
+
   ngOnInit() {
     this.devicesService.getBrands().subscribe(result => {
       this.brands = result.makeInfo
@@ -71,6 +74,9 @@ export class DevicesComponent implements OnInit {
       deviceType: ['', Validators.required],
       color: ['', Validators.required],
     })
+
+    this.devicesService.getColors().subscribe(res => this.colorsList = res);
+    this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res);
   }
 
   open(device?: DeviceInfo) {
@@ -173,7 +179,7 @@ export class DevicesComponent implements OnInit {
     if (showLoader) {
       this.loading = true;
     }
-    this.devicesService.getDevices().subscribe(result => {
+    this.devicesService.getDevices(this.assetId).subscribe(result => {
       this.devices = result.deviceInfo;
     }, () => {
 
