@@ -14,6 +14,7 @@ import {DeviceService} from "../../core/services/device.service";
 import {LoginResult} from "../../core/interfaces/auth";
 import {AuthService} from "../../core/services/auth.service";
 import {ToastService} from "../../core/services/toast.service";
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-devices',
@@ -48,6 +49,7 @@ export class DevicesComponent implements OnInit {
   private toastService = inject(ToastService);
   private auth = inject(AuthService);
   private devicesService = inject(DeviceService);
+  private notificationsService = inject(NotificationService);
 
   closeResult = '';
   showSometerButton = false;
@@ -58,6 +60,7 @@ export class DevicesComponent implements OnInit {
   deviceTypesList: string[] = []
 
   ngOnInit() {
+    this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
     this.devicesService.getBrands().subscribe(result => {
       this.brands = result.makeInfo
     })

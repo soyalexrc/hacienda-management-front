@@ -9,6 +9,7 @@ import {ConsultantService} from "../../core/services/consultant.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ToastService} from "../../core/services/toast.service";
 import {User} from "../../core/interfaces/auth";
+import {NotificationService} from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-consultants',
@@ -26,6 +27,7 @@ export class ConsultantsComponent implements OnInit{
   private modalService = inject(NgbModal);
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
+  private notificationsService = inject(NotificationService);
   private consultantService = inject(ConsultantService);
   @ViewChild('editModal') editModal = TemplateRef<any>;
   @ViewChild('successToast') successToast! : TemplateRef<any>;
@@ -40,6 +42,7 @@ export class ConsultantsComponent implements OnInit{
   updateLoading = false;
 
   ngOnInit() {
+    this.notificationsService.getNotifications(this.authService.getCurrentUser.mainUser.assetID);
     this.consultants = this.authService.getCurrentUser.secondaryUser;
     this.form = this.fb.group({
       name: [''],

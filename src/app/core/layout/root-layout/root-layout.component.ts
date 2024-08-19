@@ -31,7 +31,6 @@ export class RootLayoutComponent implements OnInit, OnDestroy{
   notificationsSubscription = new Subscription();
 
   ngOnInit() {
-    this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
     this.notificationsSubscription = this.notificationsService.notifications.subscribe(result => {
       this.notificationsAmount = result.length;
     });

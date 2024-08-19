@@ -8,6 +8,8 @@ import {Company, CompanyForm, CompanyInfo, UpdateCompanyPayload} from "../../cor
 import {CompanyService} from "../../core/services/company.service";
 import {SpinnerComponent} from "../../shared/components/spinner/spinner.component";
 import {ToastService} from "../../core/services/toast.service";
+import {NotificationService} from "../../core/services/notification.service";
+import {AuthService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-companies',
@@ -33,6 +35,8 @@ export class CompaniesComponent implements OnInit{
   companies: CompanyInfo[] = [];
   updateLoading = false;
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private notificationsService = inject(NotificationService);
   private toastService = inject(ToastService);
   closeResult = '';
 
@@ -41,6 +45,7 @@ export class CompaniesComponent implements OnInit{
 
   ngOnInit() {
     this.getCompanies();
+    this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
