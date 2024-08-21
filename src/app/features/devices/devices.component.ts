@@ -258,18 +258,28 @@ export class DevicesComponent implements OnInit {
   applyFilters() {
     const searchTextLowerCase = this.searchCriteria.toLowerCase();
 
-    if (searchTextLowerCase.trim() === '') {
-      this.getDevices();
-      return;
-    }
+    this.devicesService.getDevices(this.assetId).subscribe(result => {
 
-    this.devices = this.devices.filter(device => {
-      return device.propmake.toLowerCase().includes(searchTextLowerCase) ||
-        device.propmodel.toLowerCase().includes(searchTextLowerCase) ||
-        device.propserial.toLowerCase().includes(searchTextLowerCase) ||
-        device.propregistrationdate.toLowerCase().includes(searchTextLowerCase) ||
-        device.propcolor.toLowerCase().includes(searchTextLowerCase) ||
-        device.propapprovalperson.toLowerCase().includes(searchTextLowerCase)
+      if (searchTextLowerCase.trim() === '') {
+       this.devices = result.deviceInfo
+        return;
+      } else {
+        this.devices = result.deviceInfo.filter(device => {
+          return device.propmake.toLowerCase().includes(searchTextLowerCase) ||
+            device.propmodel.toLowerCase().includes(searchTextLowerCase) ||
+            device.propserial.toLowerCase().includes(searchTextLowerCase) ||
+            device.propregistrationdate.toLowerCase().includes(searchTextLowerCase) ||
+            device.propcolor.toLowerCase().includes(searchTextLowerCase) ||
+            device.propapprovalperson.toLowerCase().includes(searchTextLowerCase)
+        })
+      }
+
+
+    }, () => {
+
+    }, () => {
+      this.loading = false;
     })
+
   }
 }

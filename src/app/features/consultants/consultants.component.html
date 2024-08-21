@@ -13,15 +13,13 @@
     Sección dedicada a la información básica de los consultores. Esta información es necesaria para asignarle los datos
     al inventario de equipos y consultores.
   </p>
-<!--  <div class="row mb-5">-->
-<!--    <div class="col-md-8"></div>-->
-<!--    <div class="col-md-3 text-right">-->
-<!--      <input type="text" class="form-control" placeholder="Buscar">-->
-<!--    </div>-->
-<!--    <div class="col-sm-1 text-right">-->
-<!--      <button class="btn btn-primary" type="submit">Buscar</button>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="d-flex align-items-end gap-2">
+    <div class="form-group my-3">
+      <label for="search" class="mb-2 fw-bold">Filtrar por marca, modelo, serie o color</label>
+      <input type="text" [(ngModel)]="searchCriteria" (keyup.enter)="applyFilters()" class="form-control" style="width: 320px" id="search" aria-describedby="emailHelp" placeholder="Buscar...">
+    </div>
+    <button class="btn btn-primary" (click)="applyFilters()" style="margin-bottom: 1rem">Buscar</button>
+  </div>
   <table class="table table-striped table-bordered">
     <thead>
     <tr>

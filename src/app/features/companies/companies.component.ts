@@ -42,6 +42,8 @@ export class CompaniesComponent implements OnInit{
 
   @ViewChild('successToast') successToast! : TemplateRef<any>;
   @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
+  searchCriteria = "";
+  checkStatusCriteria = 'Todos';
 
   ngOnInit() {
     this.getCompanies();
@@ -154,4 +156,63 @@ export class CompaniesComponent implements OnInit{
     })
   }
 
+  applyFilters() {
+    const searchTextLowerCase = this.searchCriteria.toLowerCase();
+
+
+    this.loading = true;
+    this.companyService.getCompanies().subscribe(result => {
+      const filterActive =  result.companyInfo.filter(consultant => {
+        return consultant.company_name.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_phone.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_zip.toString().toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_add1.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_city.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_add2.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_status
+      })
+
+      const filterInactive =  result.companyInfo.filter(consultant => {
+        return consultant.company_name.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_phone.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_zip.toString().toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_add1.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_city.toLowerCase().includes(searchTextLowerCase) ||
+          consultant.company_add2.toLowerCase().includes(searchTextLowerCase) ||
+          !consultant.company_status
+      })
+
+      if (searchTextLowerCase.trim() === '') {
+        this.companies = result.companyInfo;
+        return;
+      } else {
+          this.companies = result.companyInfo.filter(consultant => {
+            return consultant.company_name.toLowerCase().includes(searchTextLowerCase) ||
+              consultant.company_phone.toLowerCase().includes(searchTextLowerCase) ||
+              consultant.company_zip.toString().toLowerCase().includes(searchTextLowerCase) ||
+              consultant.company_add1.toLowerCase().includes(searchTextLowerCase) ||
+              consultant.company_city.toLowerCase().includes(searchTextLowerCase) ||
+              consultant.company_add2.toLowerCase().includes(searchTextLowerCase)
+          })
+        // if (this.checkStatusCriteria === 'Todos') {
+        //   this.companies = result.companyInfo.filter(consultant => {
+        //     return consultant.company_name.toLowerCase().includes(searchTextLowerCase) ||
+        //       consultant.company_phone.toLowerCase().includes(searchTextLowerCase) ||
+        //       consultant.company_zip.toString().toLowerCase().includes(searchTextLowerCase) ||
+        //       consultant.company_add1.toLowerCase().includes(searchTextLowerCase) ||
+        //       consultant.company_city.toLowerCase().includes(searchTextLowerCase) ||
+        //       consultant.company_add2.toLowerCase().includes(searchTextLowerCase)
+        //   })
+        // } else if (this.checkStatusCriteria === 'Active') {
+        //   this.companies = filterActive
+        // } else {
+        //   this.companies = filterInactive
+        // }
+      }
+    }, () => {
+
+    }, () => {
+      this.loading = false;
+    })
+  }
 }

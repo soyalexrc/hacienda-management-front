@@ -34,6 +34,7 @@ export class ConsultantsComponent implements OnInit{
   @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
   form!: FormGroup<ConsultantForm>;
   consultants: User[] = []
+  searchCriteria = "Todos";
   // protected readonly CONSULTANTS_MOCK = CONSULTANTS_MOCK;
 
   private fb = inject(FormBuilder);
@@ -137,4 +138,26 @@ export class ConsultantsComponent implements OnInit{
     // })
   }
 
+  applyFilters() {
+    const searchTextLowerCase = this.searchCriteria.toLowerCase();
+
+    this.consultants = this.authService.getCurrentUser.secondaryUser;
+
+
+      if (searchTextLowerCase.trim() === '') {
+        this.consultants = this.authService.getCurrentUser.secondaryUser;
+        return;
+      } else {
+        this.consultants = this.authService.getCurrentUser.secondaryUser.filter(consultant => {
+          return consultant.email.toLowerCase().includes(searchTextLowerCase) ||
+            consultant.phone.toLowerCase().includes(searchTextLowerCase) ||
+            consultant.company.toString().toLowerCase().includes(searchTextLowerCase) ||
+            consultant.name.toLowerCase().includes(searchTextLowerCase) ||
+            consultant.lastname.toLowerCase().includes(searchTextLowerCase) ||
+            consultant.lastname2.toLowerCase().includes(searchTextLowerCase)
+        })
+      }
+
+
+  }
 }
