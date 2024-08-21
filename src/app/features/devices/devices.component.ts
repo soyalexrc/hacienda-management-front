@@ -40,6 +40,7 @@ export class DevicesComponent implements OnInit {
   loading = false;
   updateLoading = false;
   user!: LoginResult;
+  searchCriteria = "";
   status = 'Activar';
 
   modelsByBrand: { model: string }[] = []
@@ -134,6 +135,7 @@ export class DevicesComponent implements OnInit {
       modelo: this.form.get('model')?.value ?? '',
       marca: this.form.get('brand')?.value ?? '',
       tipo: this.form.get('deviceType')?.value ?? '',
+      serie: this.form.get('series')?.value ?? '',
       fechaDeRegistro: this.form.get('fechaDeRegistro')?.value ?? '',
       checkIn_status: this.form.get('checkIn_status')?.value ?? '',
       approval_person: this.form.get('approval_person')?.value ?? '',
@@ -250,6 +252,24 @@ export class DevicesComponent implements OnInit {
       console.log(e);
     }, () => {
       this.updateLoading = false;
+    })
+  }
+
+  applyFilters() {
+    const searchTextLowerCase = this.searchCriteria.toLowerCase();
+
+    if (searchTextLowerCase.trim() === '') {
+      this.getDevices();
+      return;
+    }
+
+    this.devices = this.devices.filter(device => {
+      return device.propmake.toLowerCase().includes(searchTextLowerCase) ||
+        device.propmodel.toLowerCase().includes(searchTextLowerCase) ||
+        device.propserial.toLowerCase().includes(searchTextLowerCase) ||
+        device.propregistrationdate.toLowerCase().includes(searchTextLowerCase) ||
+        device.propcolor.toLowerCase().includes(searchTextLowerCase) ||
+        device.propapprovalperson.toLowerCase().includes(searchTextLowerCase)
     })
   }
 }
