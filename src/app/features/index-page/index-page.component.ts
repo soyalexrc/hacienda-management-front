@@ -18,12 +18,15 @@ export class IndexPageComponent implements OnInit{
   ngOnInit() {
     console.log(this.user.mainUser.roleID);
     switch (this.user.mainUser.roleID) {
-      case 1:
+      case 0:
         this.router.navigate(['/companies'], {replaceUrl: true})
         break
-      case 2:
+      case 1:
         this.router.navigate(['/consultants'], {replaceUrl: true})
         // this.router.navigate(['/devices'], {replaceUrl: true})
+        break
+      case 2:
+        this.router.navigate(['/devices'], {replaceUrl: true})
         break
       case 3:
         this.router.navigate(['/devices'], {replaceUrl: true})

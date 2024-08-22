@@ -68,9 +68,27 @@ export class DevicesComponent implements OnInit {
     this.user = this.auth.getCurrentUser;
     this.assetId = this.user.mainUser.assetID;
     this.getDevices();
+
+    this.buildForm();
+
+    this.form.get('deviceType')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.form.get('brand')?.enable();
+        this.form.get('model')?.enable();
+      } else {
+        this.form.get('brand')?.disable();
+        this.form.get('model')?.disable();
+      }
+    });
+
+    this.devicesService.getColors().subscribe(res => this.colorsList = res);
+    this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res);
+  }
+
+  buildForm() {
     this.form = this.fb.group({
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
+      brand: [{value: '', disabled: true}, Validators.required],
+      model: [{value: '', disabled: true}, Validators.required],
       series: ['', Validators.required],
       registerDate: [''],
       checkIn_status: [''],
@@ -78,9 +96,6 @@ export class DevicesComponent implements OnInit {
       deviceType: ['', Validators.required],
       color: ['', Validators.required],
     })
-
-    this.devicesService.getColors().subscribe(res => this.colorsList = res);
-    this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res);
   }
 
   open(device?: DeviceInfo) {
@@ -261,7 +276,7 @@ export class DevicesComponent implements OnInit {
     this.devicesService.getDevices(this.assetId).subscribe(result => {
 
       if (searchTextLowerCase.trim() === '') {
-       this.devices = result.deviceInfo
+        this.devices = result.deviceInfo
         return;
       } else {
         this.devices = result.deviceInfo.filter(device => {
@@ -280,6 +295,5 @@ export class DevicesComponent implements OnInit {
     }, () => {
       this.loading = false;
     })
-
   }
 }

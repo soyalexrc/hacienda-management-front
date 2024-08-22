@@ -16,6 +16,7 @@
     <!--      </div>-->
     @if (!hideSignOut()) {
       <div class="d-flex align-items-center gap-3">
+        <h5 class="m-0 text-white">Bienvenido/a, {{ user.name }}!</h5>
         <div class="notifications-wrapper" routerLink="/profile">
           <ng-icon name="heroUserCircleSolid" size="25px" color="white">
           </ng-icon>

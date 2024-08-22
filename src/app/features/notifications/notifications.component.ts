@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ToastService} from "../../core/services/toast.service";
 import {NgIcon, provideIcons} from "@ng-icons/core";
 import {heroTrashSolid} from "@ng-icons/heroicons/solid";
+import {AuthService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-notifications',
@@ -27,6 +28,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notificationsSubscription = new Subscription();
   private readonly notificationsService = inject(NotificationService)
   private modalService = inject(NgbModal);
+  private auth = inject(AuthService);
   currentNotification!: NotesInfo;
   @ViewChild('successToast') successToast! : TemplateRef<any>;
   @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
@@ -36,7 +38,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.notificationsSubscription = this.notificationsService.notifications.subscribe(result => {
       this.notifications = result;
-      console.log(result);
     })
   }
 
@@ -45,7 +46,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       if (!res.hasError) {
         this.currentNotification = notification;
         this.modalService.open(this.notificationDetailModal);
-        this.notificationsService.getNotifications();
+        this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
       }
     })
   }
