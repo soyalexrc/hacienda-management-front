@@ -41,7 +41,9 @@ export class DevicesComponent implements OnInit {
   updateLoading = false;
   user!: LoginResult;
   searchCriteria = "";
-  status = 'Activar';
+  status = '';
+  approvalStatus = '';
+  checkStatus = ''
 
   modelsByBrand: { model: string }[] = []
   brands: { compMake: string }[] = []
@@ -81,6 +83,12 @@ export class DevicesComponent implements OnInit {
       }
     });
 
+    this.form.get('alternateStatus')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.showSometerButton = true;
+      }
+    });
+
     this.devicesService.getColors().subscribe(res => this.colorsList = res);
     this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res);
   }
@@ -109,6 +117,16 @@ export class DevicesComponent implements OnInit {
         model: device.propmodel,
         series: device.propserial
       }
+
+      console.log(this.user.mainUser.roleID);
+      console.log(device.propcheckStatus);
+
+      if (this.user.mainUser.roleID === 3 && device.propcheckStatus === 'PENDIENTE') {
+        this.form.get('alternateStatus')?.disable();
+      }
+
+      this.approvalStatus = device.propapprovalStatus;
+      this.checkStatus = device.propcheckStatus;
       this.edit = true;
       this.deviceId = device.propid;
       this.updateForm(data);
@@ -231,24 +249,10 @@ export class DevicesComponent implements OnInit {
   }
 
   handleChangeStatus() {
-    let action = '';
-    switch (this.status) {
-      case 'Activar':
-        action = 'Submitted CO';
-        break;
-      case 'Desactivar':
-        action = 'Submitted CI';
-        break;
-      case 'Aprobado':
-        action = 'Approved';
-        break;
-      case 'Declinado':
-        action = 'Declined';
-        break;
-    }
+    let action = this.form.get('alternateStatus')?.value;
 
     const payload: UpdateCreateDevicePayload = {
-      action,
+      action : action as string,
       deviceid: this.deviceId,
       assetId: this.assetId,
       updatedBy: this.auth.getCurrentUser.mainUser.name,

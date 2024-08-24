@@ -45,8 +45,8 @@
         <th scope="col">Color</th>
         <th scope="col">Fecha Registro</th>
         <th scope="col">Tipo de Dispositivo</th>
-        <th scope="col">Check in Estatus</th>
-        <th scope="col">Estatus</th>
+        <th scope="col">Check Estatus</th>
+        <th scope="col">Approval Status</th>
         <th scope="col">Editar</th>
       </tr>
       </thead>
@@ -59,16 +59,9 @@
               <td>{{ device.propserial }}</td>
               <td>{{ device.propcolor }}</td>
               <td>{{ device.propregistrationdate }}</td>
-              <td>{{ device.propapprovalperson }}</td>
-              <td> {{device.propcheckStatus}}
-<!--                <select class="form-select" aria-label="Default select example" (change)="updateCheckInStatus($event, device.propid)">-->
-<!--                  <option selected disabled>Seleccionar</option>-->
-<!--                  <option value="PENDING">Pendiente</option>-->
-<!--                  <option value="APPROVED">Aprobado</option>s-->
-<!--                  <option value="DECLINED">Declinado</option>-->
-<!--                </select>-->
-              </td>
-              <td>{{ device.propactive ? 'Active' : 'Inactive' }}</td>
+              <td>{{ device.propType }}</td>
+              <td> {{device.propcheckStatus}}</td>
+              <td>{{ device.propapprovalStatus }}</td>
               <td>
                 <button type="button" data-toggle="modal" (click)="open(device)"
                         class="btn btn-primary btn-sm btn-block">
@@ -178,15 +171,23 @@
           <div class="col-12 d-flex align-items-end gap-3">
             <div class="form-group mt-3 w-100">
               <label for="alternateStatus">Estado</label>
-              <select (change)="handleChangeState($event)" id="alternateStatus" class="form-select" name="alternateStatus" formControlName="alternateStatus">
-<!--                <option value="Pendiente" disabled>Pendiente</option>-->
-                <option value="Activar">Activar</option>
-                <option value="Desactivar">Desactivar</option>
-                @if (user.mainUser.roleID === 0) {
-                  <option value="Aprobado">Aprobar</option>
-                  <option value="Declinado">Declinar</option>
+              <select id="alternateStatus" class="form-select" name="alternateStatus" formControlName="alternateStatus">
+                <option value="" disabled>Seleccionar</option>
+
+                @if (this.checkStatus === 'PENDIENTE' &&( user.mainUser.roleID === 1 || user.mainUser.roleID === 2 || user.mainUser.roleID === 4)) {
+                  <option value="SUBMIT CI">Solicitar check in</option>
                 }
 
+                @if (this.checkStatus === 'SUBMIT CI' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
+                  <option value="Approved">Aprobar</option>
+                  <option value="Declined">Declinar</option>
+                }
+
+                @if (this.checkStatus === 'Approved' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
+                  <option value="SUBMIT CO">Solicitar check out</option>
+                  <option value="Activate">Activar</option>
+                  <option value="DeActivate">Desactivar</option>
+                }
               </select>
             </div>
             @if (showSometerButton) {

@@ -24,7 +24,7 @@
     <thead>
     <tr>
       <th scope="col">Nombre</th>
-      <th scope="col">Dirección </th>
+      <th scope="col">Apellido </th>
       <th scope="col">Teléfono</th>
       <th scope="col">Compañía</th>
       <th scope="col">Email</th>
@@ -37,9 +37,9 @@
       @for (consultant of consultants; track consultant.email) {
         <tr>
           <td routerLink="/devices" class="clickable-cell">{{consultant.name}}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.add1 }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.lastname }}</td>
           <td routerLink="/devices" class="clickable-cell">{{ consultant.phone }}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.company }}</td>
+          <td routerLink="/devices" class="clickable-cell">{{ consultant.company_name }}</td>
           <td routerLink="/devices" class="clickable-cell">{{ consultant.email }}</td>
           <td routerLink="/devices" class="clickable-cell">Active</td>
 <!--          <td>-->
@@ -86,6 +86,15 @@
             <label for="name">Nombre</label>
             <input id="name"  class="form-control" [ngClass]="{'input-error': getFieldError('name', 'required')}" placeholder="Nombre de Consultor" name="name" formControlName="name">
             @if (getFieldError('name', 'required')) {
+              <span class="error-text">Este campo es requerido</span>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group mt-3">
+            <label for="lastname">Apellido</label>
+            <input id="lastname"  class="form-control" [ngClass]="{'input-error': getFieldError('lastname', 'required')}" placeholder="Apellido de Consultor" name="lastname" formControlName="lastname">
+            @if (getFieldError('lastname', 'required')) {
               <span class="error-text">Este campo es requerido</span>
             }
           </div>

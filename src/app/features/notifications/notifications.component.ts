@@ -1,7 +1,7 @@
 import {Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {NotesInfo} from "../../core/interfaces/notification";
 import {NotificationService} from "../../core/services/notification.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgClass, NgStyle} from "@angular/common";
 import {Subscription} from "rxjs";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -16,7 +16,9 @@ import {AuthService} from "../../core/services/auth.service";
   imports: [
     DatePipe,
     ReactiveFormsModule,
-    NgIcon
+    NgIcon,
+    NgClass,
+    NgStyle
   ],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',
@@ -42,19 +44,25 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   openNote(notification: NotesInfo){
-    this.notificationsService.manageNotificationActions(notification.noteid, 'READ').subscribe(res => {
-      if (!res.hasError) {
-        this.currentNotification = notification;
-        this.modalService.open(this.notificationDetailModal);
-        this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
-      }
-    })
+    if (!notification.notestatus) {
+      this.notificationsService.manageNotificationActions(notification.noteid, 'READ').subscribe(res => {
+        if (!res.hasError) {
+          this.currentNotification = notification;
+          this.modalService.open(this.notificationDetailModal);
+          this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
+        }
+      })
+    } else {
+      this.currentNotification = notification;
+      this.modalService.open(this.notificationDetailModal);
+    }
   }
 
   deleteNode(noteId: number) {
     this.notificationsService.manageNotificationActions(noteId, 'DELETE').subscribe(res => {
       if (!res.hasError) {
         this.toastService.show({template: this.successToast, classname: 'bg-success text-light', delay: 10000})
+        this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
         this.modalService.dismissAll();
       }
     })

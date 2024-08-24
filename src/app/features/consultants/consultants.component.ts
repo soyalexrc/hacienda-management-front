@@ -47,6 +47,7 @@ export class ConsultantsComponent implements OnInit{
     this.consultants = this.authService.getCurrentUser.secondaryUser;
     this.form = this.fb.group({
       name: [''],
+      lastname: [''],
       address: [''],
       address2: [''],
       city: [''],
@@ -125,10 +126,12 @@ export class ConsultantsComponent implements OnInit{
   updateForm(consultant: User) {
     console.log(consultant);
     this.form.get('name')?.setValue(consultant.name);
+    this.form.get('lastname')?.setValue(consultant.lastname);
     this.form.get('address')?.setValue(consultant.add1);
     this.form.get('address2')?.setValue(consultant.add2);
     this.form.get('email')?.setValue(consultant.email);
     this.form.get('phone')?.setValue(consultant.phone);
+    this.form.get('company')?.setValue(consultant.company_name);
     this.form.get('city')?.setValue(consultant.city);
     this.form.get('zipCode')?.setValue(consultant.zip);
     // Object.keys(consultant).forEach((key) => {

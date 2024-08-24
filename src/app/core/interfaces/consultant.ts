@@ -16,6 +16,7 @@ export interface Consultant {
 
 export interface ConsultantForm {
   name: FormControl<string | null>;
+  lastname: FormControl<string | null>;
   address: FormControl<string | null>;
   address2: FormControl<string | null>;
   zipCode: FormControl<string | null>;

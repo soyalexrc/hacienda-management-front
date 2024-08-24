@@ -44,7 +44,9 @@ export class SignInComponent implements OnInit{
     this.auth.signIn(username!, password!).subscribe(result => {
       if (!result.hasError) {
         sessionStorage.setItem('isLoggedIn', String(true));
+        console.log('result', result);
         sessionStorage.setItem('currentUser', JSON.stringify(result));
+        console.log('result from storage', sessionStorage.getItem('currentUser'));
         this.auth.updateCurrentUser(result);
         this.router.navigate(['/']);
       } else {

@@ -16,7 +16,7 @@
     <!--      </div>-->
     @if (!hideSignOut()) {
       <div class="d-flex align-items-center gap-3">
-        <h5 class="m-0 text-white">Bienvenido/a, {{ user.name }}!</h5>
+        <h5 class="m-0 text-white">Bienvenido/a, {{ user?.name }}!</h5>
         <div class="notifications-wrapper" routerLink="/profile">
           <ng-icon name="heroUserCircleSolid" size="25px" color="white">
           </ng-icon>
@@ -24,7 +24,9 @@
         <div class="notifications-wrapper" routerLink="/notifications">
           <ng-icon name="heroBellSolid" size="25px" color="white">
           </ng-icon>
+        @if (notificationsAmount > 0) {
           <span class="badge custom-badge">{{notificationsAmount}}</span>
+        }
         </div>
         <a class="align-content-end" style="cursor: pointer" (click)="signOut()">Cerrar Sesión</a>
       </div>

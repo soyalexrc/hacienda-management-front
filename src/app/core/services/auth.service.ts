@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUser: BehaviorSubject<LoginResult | {}> = new BehaviorSubject(JSON.parse(sessionStorage.getItem('currentUser') ?? '{}'));
+  currentUser: BehaviorSubject<LoginResult | {}> = new BehaviorSubject(JSON.parse(sessionStorage.getItem('currentUser') ?? '{}'));
   private http = inject(HttpClient);
   private baseUrl = environment.baseUrl;
   private router = inject(Router);

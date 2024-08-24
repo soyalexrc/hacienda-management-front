@@ -3,7 +3,6 @@ import {RootLayoutComponent} from "./core/layout/root-layout/root-layout.compone
 import {authGuard} from "./core/guards/auth.guard";
 import {consultantGuard} from "./core/guards/consultant.guard";
 import {adminGuard} from "./core/guards/admin.guard";
-import {deviceGuard} from "./core/guards/device.guard";
 import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
@@ -23,7 +22,7 @@ export const routes: Routes = [
       },
       {
         path: 'consultants',
-        canActivate: [authGuard, consultantGuard ],
+        canActivate: [authGuard, consultantGuard],
         loadComponent: () => import('./features/consultants/consultants.component').then(c => c.ConsultantsComponent)
       },
       {

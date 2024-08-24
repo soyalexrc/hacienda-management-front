@@ -8,6 +8,7 @@ import {NotificationService} from "../../services/notification.service";
 import {NotesInfo, NotificationsResult} from "../../interfaces/notification";
 import {Subscription} from "rxjs";
 import {ToastContainerComponent} from "../../../shared/components/toast-container/toast-container.component";
+import {LoginResult} from "../../interfaces/auth";
 
 @Component({
   selector: 'app-root-layout',
@@ -33,8 +34,12 @@ export class RootLayoutComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.notificationsSubscription = this.notificationsService.notifications.subscribe(result => {
-      this.notificationsAmount = result.length;
+      this.notificationsAmount = result.filter(n => !n.notestatus).length;
     });
+
+    this.auth.currentUser.subscribe(value => {
+        this.user = (value as LoginResult).mainUser;
+    })
   }
 
   ngOnDestroy() {

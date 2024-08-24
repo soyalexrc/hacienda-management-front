@@ -35,6 +35,7 @@ export interface DeviceInfo {
   propid:               number;
   propassetid:          number;
   propregistrationdate: string;
+  propType: string;
   propactive:           boolean;
   propmake:             string;
   propmodel:            string;
@@ -42,7 +43,7 @@ export interface DeviceInfo {
   propserial:           string;
   propapprovalStatus:   string;
   propapprovalperson:   string;
-  propcheckStatus:      boolean;
+  propcheckStatus:      string;
   propcheckoutDate:     string;
   propcheckinDate:      string;
   propupdatedby:        string;
