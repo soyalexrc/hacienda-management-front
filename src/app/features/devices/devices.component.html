@@ -175,7 +175,7 @@
                 <option value="" disabled>Seleccionar</option>
 
                 @if (this.checkStatus === 'PENDIENTE' &&( user.mainUser.roleID === 1 || user.mainUser.roleID === 2 || user.mainUser.roleID === 4)) {
-                  <option value="SUBMIT CI">Solicitar check in</option>
+                  <option value="SUBMIT CI">Someter check in</option>
                 }
 
                 @if (this.checkStatus === 'SUBMIT CI' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
@@ -184,7 +184,7 @@
                 }
 
                 @if (this.checkStatus === 'Approved' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
-                  <option value="SUBMIT CO">Solicitar check out</option>
+                  <option value="SUBMIT CO">Someter check out</option>
                   <option value="Activate">Activar</option>
                   <option value="DeActivate">Desactivar</option>
                 }
