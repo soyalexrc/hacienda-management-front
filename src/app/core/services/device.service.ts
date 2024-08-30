@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {
   BrandsResult,
   DevicesResult,
@@ -15,9 +15,16 @@ import {
 })
 export class DeviceService {
   private http = inject(HttpClient);
+  assetIdFilter: BehaviorSubject<number> = new BehaviorSubject<number>(sessionStorage.getItem('assetIdFilter') ? Number(sessionStorage.getItem('assetIdFilter')) : 0);
+
   baseUrl = environment.baseUrl;
-  getDevices(assetId = 0): Observable<DevicesResult> {
-    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices?assetid=${assetId}`);
+  getDevices(): Observable<DevicesResult> {
+    console.log(this.assetIdFilter.value);
+    return this.http.get<DevicesResult>(`${this.baseUrl}/Users/GetDevices`, {
+      headers: {
+        'assetId': `${this.assetIdFilter.value}`
+      }
+    });
   }
 
   manageDevices(payload: UpdateCreateDevicePayload): Observable<UpdateCreateDeviceResult> {
@@ -38,6 +45,11 @@ export class DeviceService {
 
   getModels(brand: string): Observable<ModelsResult> {
     return this.http.get<ModelsResult>(`${this.baseUrl}/Users/GetModel?make=${brand}`);
+  }
+
+  updateAssetIdFilter(value: number) {
+    sessionStorage.setItem('assetIdFilter', value.toString());
+    this.assetIdFilter.next(value);
   }
 
 }

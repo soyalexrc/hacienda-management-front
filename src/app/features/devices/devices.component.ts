@@ -15,6 +15,8 @@ import {LoginResult} from "../../core/interfaces/auth";
 import {AuthService} from "../../core/services/auth.service";
 import {ToastService} from "../../core/services/toast.service";
 import {NotificationService} from "../../core/services/notification.service";
+import {NgIcon, provideIcons} from "@ng-icons/core";
+import {heroArrowLeft} from "@ng-icons/heroicons/outline";
 
 @Component({
   selector: 'app-devices',
@@ -24,10 +26,13 @@ import {NotificationService} from "../../core/services/notification.service";
     ReactiveFormsModule,
     NgClass,
     RouterLink,
-    SpinnerComponent
+    SpinnerComponent,
+    NgIcon
   ],
   templateUrl: './devices.component.html',
-  styleUrl: './devices.component.scss'
+  styleUrl: './devices.component.scss',
+  viewProviders: [provideIcons({ heroArrowLeft })]
+
 })
 export class DevicesComponent implements OnInit {
   private modalService = inject(NgbModal);
@@ -68,6 +73,10 @@ export class DevicesComponent implements OnInit {
       this.brands = result.makeInfo
     })
     this.user = this.auth.getCurrentUser;
+    if (this.user.mainUser.roleID === 3 || this.user.mainUser.roleID === 2) {
+      this.devicesService.updateAssetIdFilter(this.user.mainUser.assetID)
+    }
+
     this.assetId = this.user.mainUser.assetID;
     this.getDevices();
 
@@ -217,7 +226,7 @@ export class DevicesComponent implements OnInit {
     if (showLoader) {
       this.loading = true;
     }
-    this.devicesService.getDevices(this.assetId).subscribe(result => {
+    this.devicesService.getDevices().subscribe(result => {
       this.devices = result.deviceInfo;
     }, () => {
 
@@ -277,7 +286,7 @@ export class DevicesComponent implements OnInit {
   applyFilters() {
     const searchTextLowerCase = this.searchCriteria.toLowerCase();
 
-    this.devicesService.getDevices(this.assetId).subscribe(result => {
+    this.devicesService.getDevices().subscribe(result => {
 
       if (searchTextLowerCase.trim() === '') {
         this.devices = result.deviceInfo

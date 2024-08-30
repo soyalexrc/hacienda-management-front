@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Consultant, ConsultantForm, UpdateConsultantPayload} from "../../core/interfaces/consultant";
@@ -8,8 +8,11 @@ import {NgClass} from "@angular/common";
 import {ConsultantService} from "../../core/services/consultant.service";
 import {AuthService} from "../../core/services/auth.service";
 import {ToastService} from "../../core/services/toast.service";
-import {User} from "../../core/interfaces/auth";
+import {LoginResult, User} from "../../core/interfaces/auth";
 import {NotificationService} from "../../core/services/notification.service";
+import {DeviceService} from "../../core/services/device.service";
+import { heroArrowLeft } from '@ng-icons/heroicons/outline';
+import {NgIcon, provideIcons} from "@ng-icons/core";
 
 @Component({
   selector: 'app-consultants',
@@ -19,21 +22,26 @@ import {NotificationService} from "../../core/services/notification.service";
     FormsModule,
     ReactiveFormsModule,
     NgClass,
+    NgIcon,
   ],
   templateUrl: './consultants.component.html',
   styleUrl: './consultants.component.scss',
+  viewProviders: [provideIcons({ heroArrowLeft })]
 })
 export class ConsultantsComponent implements OnInit{
   private modalService = inject(NgbModal);
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
+  private devicesService = inject(DeviceService);
   private notificationsService = inject(NotificationService);
+  private router = inject(Router);
   private consultantService = inject(ConsultantService);
   @ViewChild('editModal') editModal = TemplateRef<any>;
   @ViewChild('successToast') successToast! : TemplateRef<any>;
   @ViewChild('dangerToast') dangerToast! : TemplateRef<any>;
   form!: FormGroup<ConsultantForm>;
   consultants: User[] = []
+  user!: LoginResult;
   searchCriteria = "Todos";
   // protected readonly CONSULTANTS_MOCK = CONSULTANTS_MOCK;
 
@@ -43,6 +51,7 @@ export class ConsultantsComponent implements OnInit{
   updateLoading = false;
 
   ngOnInit() {
+    this.user = this.authService.getCurrentUser;
     this.notificationsService.getNotifications(this.authService.getCurrentUser.mainUser.assetID);
     this.consultants = this.authService.getCurrentUser.secondaryUser;
     this.form = this.fb.group({
@@ -160,7 +169,11 @@ export class ConsultantsComponent implements OnInit{
             consultant.lastname2.toLowerCase().includes(searchTextLowerCase)
         })
       }
-
-
   }
+
+  filterDevicesByConsultant(assetId: number) {
+    this.devicesService.updateAssetIdFilter(assetId);
+    this.router.navigate(['/devices'])
+  }
+
 }

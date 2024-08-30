@@ -1,13 +1,19 @@
 <div class="container my-5 px-4 px-lg-5">
   <!-- Heading Row-->
   <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>Consultores</h1>
+   @if (user.mainUser.roleID === 4) {
+     <button type="button"routerLink="/companies" class="btn btn-outline-primary n-sm btn-block d-flex items-center gap-2" >
+       <ng-icon name="heroArrowLeft" size="25px" ></ng-icon>
+       <span>Volver</span>
+     </button>
+   }
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h1>Consultores</h1>
+      </div>
 <!--      <button type="button" data-toggle="modal" data-target="#miModal3" class="btn btn-primary n-sm btn-block" (click)="open()">-->
 <!--        Agregar-->
 <!--      </button>-->
     </div>
-  </div>
 
   <p>
     Sección dedicada a la información básica de los consultores. Esta información es necesaria para asignarle los datos
@@ -36,12 +42,12 @@
     <tbody>
       @for (consultant of consultants; track consultant.email) {
         <tr>
-          <td routerLink="/devices" class="clickable-cell">{{consultant.name}}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.lastname }}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.phone }}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.company_name }}</td>
-          <td routerLink="/devices" class="clickable-cell">{{ consultant.email }}</td>
-          <td routerLink="/devices" class="clickable-cell">Active</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">{{consultant.name}}</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">{{ consultant.lastname }}</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">{{ consultant.phone }}</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">{{ consultant.company_name }}</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">{{ consultant.email }}</td>
+          <td (click)="filterDevicesByConsultant(consultant.assetID)" class="clickable-cell">Active</td>
 <!--          <td>-->
 <!--            <button type="button" class="btn btn-primary btn-sm btn-block">-->
 <!--              Ver-->
