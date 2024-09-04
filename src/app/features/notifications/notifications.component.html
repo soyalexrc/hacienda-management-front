@@ -10,10 +10,10 @@
       <div class="card mb-3" style="cursor: pointer" (click)="openNote(notification)">
         <div class="card-body row d-flex align-items-start">
           <div class="col-9">
-            <p class="mb-0" [ngClass]="{'fw-bold': !notification.notestatus}" [ngStyle]="{'color': notification.notestatus ? 'gray' : 'black'}">{{ notification.notetxt.slice(0, 100).concat('...') }}</p>
+            <p class="mb-0" [ngClass]="{'fw-bold': !notification.notereaddate}" [ngStyle]="{'color': notification.notereaddate ? 'gray' : 'black'}">{{ notification.notetxt.slice(0, 100).concat('...') }}</p>
           </div>
           <div class="col-3">
-            <p [ngStyle]="{'color': notification.notestatus ? 'gray' : 'black'}">{{ notification.notedate }}</p>
+            <p [ngStyle]="{'color': notification.notereaddate ? 'gray' : 'black'}">{{ notification.notedate }}</p>
           </div>
         </div>
       </div>

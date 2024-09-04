@@ -181,16 +181,16 @@
                 <option value="" disabled>Seleccionar</option>
 
                 @if (this.checkStatus === 'PENDIENTE' &&( user.mainUser.roleID === 1 || user.mainUser.roleID === 2 || user.mainUser.roleID === 4)) {
-                  <option value="SUBMIT CI">Someter check in</option>
+                  <option value="Submitted CI">Someter check in</option>
                 }
 
-                @if (this.checkStatus === 'SUBMIT CI' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
+                @if (this.checkStatus === 'Submitted CI' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
                   <option value="Approved">Aprobar</option>
                   <option value="Declined">Declinar</option>
                 }
 
                 @if (this.checkStatus === 'Approved' && (user.mainUser.roleID === 3 || user.mainUser.roleID === 4)) {
-                  <option value="SUBMIT CO">Someter check out</option>
+                  <option value="Submitted CO">Someter check out</option>
                   <option value="Activate">Activar</option>
                   <option value="DeActivate">Desactivar</option>
                 }

@@ -44,7 +44,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   openNote(notification: NotesInfo){
-    if (!notification.notestatus) {
+    if (!notification.notereaddate) {
       this.notificationsService.manageNotificationActions(notification.noteid, 'READ').subscribe(res => {
         if (!res.hasError) {
           this.currentNotification = notification;
