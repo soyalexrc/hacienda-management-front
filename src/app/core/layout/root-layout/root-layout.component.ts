@@ -33,8 +33,9 @@ export class RootLayoutComponent implements OnInit, OnDestroy{
   user = this.auth.getCurrentUser.mainUser;
 
   ngOnInit() {
+    this.notificationsService.startNotificationsFetchLoop();
     this.notificationsSubscription = this.notificationsService.notifications.subscribe(result => {
-      this.notificationsAmount = result.filter(n => !n.notestatus).length;
+      this.notificationsAmount = result.filter(n => !n.notereaddate).length;
     });
 
     this.auth.currentUser.subscribe(value => {

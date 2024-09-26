@@ -49,7 +49,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         if (!res.hasError) {
           this.currentNotification = notification;
           this.modalService.open(this.notificationDetailModal);
-          this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
+          this.notificationsService.getNotifications();
         }
       })
     } else {
@@ -62,7 +62,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.notificationsService.manageNotificationActions(noteId, 'DELETE').subscribe(res => {
       if (!res.hasError) {
         this.toastService.show({template: this.successToast, classname: 'bg-success text-light', delay: 10000})
-        this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
+        this.notificationsService.getNotifications();
         this.modalService.dismissAll();
       }
     })

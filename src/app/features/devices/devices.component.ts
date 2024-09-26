@@ -68,9 +68,9 @@ export class DevicesComponent implements OnInit {
   deviceTypesList: string[] = []
 
   ngOnInit() {
-    this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
+    // this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
     this.devicesService.getBrands().subscribe(result => {
-      this.brands = result.makeInfo
+      this.brands = result.makeInfo.map( b => ({ compMake: b.compMake.toUpperCase()}))
     })
     this.user = this.auth.getCurrentUser;
     if (this.user.mainUser.roleID === 3 || this.user.mainUser.roleID === 2) {
@@ -98,8 +98,8 @@ export class DevicesComponent implements OnInit {
       }
     });
 
-    this.devicesService.getColors().subscribe(res => this.colorsList = res);
-    this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res);
+    this.devicesService.getColors().subscribe(res => this.colorsList = res.map(c => c.toUpperCase().trim()));
+    this.devicesService.getDeviceTypes().subscribe(res => this.deviceTypesList = res.map(d => d.toUpperCase()));
   }
 
   buildForm() {
@@ -119,7 +119,7 @@ export class DevicesComponent implements OnInit {
     if (device) {
       const data: Device = {
         id: device.propid,
-        deviceType: device.propapprovalperson,
+        deviceType: device.propType,
         registerDate: device.propregistrationdate,
         brand: device.propmake,
         color: device.propcolor,
@@ -214,12 +214,12 @@ export class DevicesComponent implements OnInit {
     })
   }
 
-  updateForm(company: Device) {
-    Object.keys(company).forEach((key) => {
-      if (company[key as keyof Device] !== 'id') {
-        this.form.get(key)?.patchValue(company[key as keyof Device])
+  updateForm(data: Device) {
+    Object.keys(data).forEach((key) => {
+      if (data[key as keyof Device] !== 'id') {
+        this.form.get(key)?.setValue(data[key as keyof Device])
       }
-    })
+    });
   }
 
   getDevices(showLoader = true) {
@@ -237,7 +237,7 @@ export class DevicesComponent implements OnInit {
 
   getModelsByBrand(brand: string) {
     this.devicesService.getModels(brand).subscribe(result => {
-      this.modelsByBrand = result.modelInfo
+      this.modelsByBrand = result.modelInfo.map(m => ({ model: m.model.toUpperCase() }))
     })
   }
 

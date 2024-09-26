@@ -153,6 +153,7 @@
             <select
               [ngClass]="{'input-error': getFieldError('color', 'required')}"
               id="color" class="form-select" name="color" formControlName="color">
+              <option value="" disabled>Seleccionar</option>
               @for (color of colorsList; track color) {
                 <option [value]="color">{{ color }}</option>
               }

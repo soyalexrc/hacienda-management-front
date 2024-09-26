@@ -52,7 +52,7 @@ export class ConsultantsComponent implements OnInit{
 
   ngOnInit() {
     this.user = this.authService.getCurrentUser;
-    this.notificationsService.getNotifications(this.authService.getCurrentUser.mainUser.assetID);
+    // this.notificationsService.getNotifications(this.authService.getCurrentUser.mainUser.assetID);
     this.consultants = this.authService.getCurrentUser.secondaryUser;
     this.form = this.fb.group({
       name: [''],

@@ -47,7 +47,7 @@ export class CompaniesComponent implements OnInit{
 
   ngOnInit() {
     this.getCompanies();
-    this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
+    // this.notificationsService.getNotifications(this.auth.getCurrentUser.mainUser.assetID);
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
